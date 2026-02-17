@@ -1,0 +1,621 @@
+================================================================================
+AMBIENTI E IP ESTRATTI DALLA DOCUMENTAZIONE
+================================================================================
+
+================================================================================
+DOCUMENTO 1: Dashboard CHC.md
+================================================================================
+
+AMBIENTI IDENTIFICATI:
+
+1. AMBIENTE TAS (Test/Sviluppo)
+   - Nome: TAS
+   - Tipo: Ambiente interno Nexi per sviluppo e test
+   - Utilizzo: 
+     * Sviluppo nuove funzionalità
+     * Unit test
+     * Debug e troubleshooting
+   - Caratteristiche:
+     * Ambiente interno Nexi
+     * Configurazione specifica per architettura interna
+     * Non direttamente replicabile in locale (richiede infrastruttura Nexi)
+   - IP: Non specificato nel documento
+
+2. AMBIENTE INT (Integrazione)
+   - Nome: INT
+   - Tipo: Ambiente di integrazione per test end-to-end
+   - Utilizzo:
+     * Test con componenti reali CHC (CCR, Orchestrator, Corebatch, ecc.)
+     * Validazione flussi completi
+     * Test di integrazione tra Dashboard e componenti CHC
+     * Verifica eventi ricevuti dai componenti
+     * Test su dati realistici (non produzione)
+     * Validazione prima del rilascio in produzione
+   - IP: Non specificato nel documento
+
+3. AMBIENTE DI PRODUZIONE
+   - Nome: PRODUZIONE
+   - Tipo: Ambiente live utilizzato da utenti finali
+   - Utilizzo:
+     * Utilizzato da utenti finali (banche, GPA, CBI, Nexi)
+     * Dati reali di flussi CBI/SEPA/PA
+     * Monitorato 24/7
+     * Rilasci controllati e schedulati
+   - IP: Non specificato nel documento
+
+4. SVILUPPO LOCALE
+   - Nome: LOCALE
+   - Tipo: Ambiente di sviluppo locale
+   - Caratteristiche:
+     * Setup locale limitato per sviluppo
+     * Dipendenze da infrastruttura Nexi (RabbitMQ, Oracle, ecc.)
+     * Configurazione specifica per ambiente locale
+     * Non include tutti i componenti CHC reali
+   - IP: Non specificato nel documento
+
+PIPELINE DI SVILUPPO:
+[SVILUPPO LOCALE] → [TAS - Test/Sviluppo] → [INT - Integrazione] → [PRODUZIONE]
+
+COMPONENTI MENTIONATI (senza IP specifici):
+- RabbitMQ (Message Broker)
+- Oracle Database (DB Eventi)
+- Splunk (Monitoring)
+- IAM (Identity Access Management)
+- PKBox (Crittografia)
+- Repository Centrale (Object Storage)
+- Dashboard (Frontend Angular + Backend)
+- CoreAPI
+- Easy Lake
+- Client CHC
+- CCR (Client Component Router)
+- Orchestrator
+- Corebatch
+- IQC
+- C-Bill
+- DAM
+
+================================================================================
+DOCUMENTO 2: HUB_CBI_ClientSW_CCR_ITA_v1_0_23.txt
+================================================================================
+
+AMBIENTI IDENTIFICATI:
+
+1. AMBIENTE DIPARTIMENTALE
+   - Nome: Smart Integrator Standard (SI Std)
+   - Tipo: Ambiente dipartimentale
+   - Caratteristiche:
+     * Retrocompatibilità con interfacce applicative attuali
+     * Utilizzato per integrazione con infrastrutture esistenti
+   - IP: Non specificato nel documento
+
+2. AMBIENTE MAINFRAME
+   - Nome: EAS (Environment per ambiente mainframe)
+   - Tipo: Ambiente mainframe
+   - Caratteristiche:
+     * Retrocompatibilità con interfacce applicative attuali
+     * Specifiche legacy dell'ambiente mainframe
+     * Non replicabili in ambiente open
+   - IP: Non specificato nel documento
+
+3. AMBIENTE OPEN
+   - Nome: Ambiente Open
+   - Tipo: Ambiente open
+   - Caratteristiche:
+     * Ambiente diverso da mainframe
+     * Utilizzato per nuove implementazioni
+   - IP: Non specificato nel documento
+
+COMPONENTI MENTIONATI (senza IP specifici):
+- ClientSW (Client Software)
+- CCR (Client Component Router)
+- Orchestrator
+- Dashboard Eventi
+- Repository Centrale
+- API Gateway Hub
+- DAM (Data Access Management)
+- Server Apache (all'interno di DMZ)
+- RabbitMQ
+- Database Oracle
+- WMQ (WebSphere MQ)
+
+CONFIGURAZIONI MENTIONATE:
+- Endpoint esposti verso CCR: "/csw/inbound/internal/api/v1/notify"
+- Configurazione MACHINE_ID per servizio SOAP:
+  * function := 'MACHINE_ID'
+  * code := hostName della macchina, con prefisso machineid
+  * Esempio: 'machineid.inst-tqfeb-stgchcrepomsa'
+  * value := numero multiplo di 10 (es. '10')
+
+================================================================================
+DOCUMENTO 3: CHC_Manuale_Dashboard_V3_0.txt
+================================================================================
+
+AMBIENTI IDENTIFICATI:
+
+Nessun ambiente specifico identificato in questo documento.
+Il documento descrive le funzionalità della Dashboard CHC senza specificare
+ambienti o IP.
+
+COMPONENTI MENTIONATI:
+- Dashboard CHC
+- Monitoraggio Applicativo
+- Monitoraggio Sistemico
+- Reportistica
+- Alert system
+
+================================================================================
+DOCUMENTO 4: Script_IQC_Controllo_Restart_catene.sql
+================================================================================
+
+AMBIENTI IDENTIFICATI:
+
+Nessun ambiente specifico identificato in questo script SQL.
+Lo script contiene solo query SQL per il controllo dei batch.
+
+DATABASE MENTIONATI:
+- DB2C (schema database)
+- Tabelle:
+  * IQCB3_JOB_EXECUTION
+  * IQCB3_JOB_INSTANCE
+  * IQCB3_STEP_EXECUTION
+  * IQCI01_TB_FLUSSO_IDX
+  * IQCD01_TB_FLUSSO_IDX
+
+================================================================================
+DOCUMENTO 5: ORCHESTRATOR.txt
+================================================================================
+
+AMBIENTI IDENTIFICATI CON IP:
+
+1. AMBIENTE DEV (Development)
+   - Nome: DEV
+   - Tipo: Ambiente di sviluppo
+   - Database Oracle:
+     * URL JDBC: jdbc:oracle:thin:@//10.106.14.108:1521/chccores_pry
+     * Port: 1521
+     * Utenza: CHC_ORC_OBJ
+     * IP: 10.106.14.108
+   - Accesso: Client SQL direttamente dalla propria macchina
+
+2. AMBIENTE INT (Integration)
+   - Nome: INT
+   - Tipo: Ambiente di integrazione
+   - Database Oracle:
+     * URL JDBC: jdbc:oracle:thin:@//poddb02-pesi-scan.cloudblue.local:1521/chccorei_pry
+     * Host: poddb02-pesi-scan.cloudblue.local
+     * Port: 1521
+     * Utenza: CHC_ORC_OBJ
+     * IP: Non specificato (hostname DNS)
+   - Accesso: Client SQL direttamente dalla propria macchina
+
+3. AMBIENTE STG (Staging/Collaudo)
+   - Nome: STG
+   - Tipo: Ambiente di collaudo pre-produzione
+   - Database Oracle:
+     * Host: oci1dba1chc1c-scan.oci.private.nexicloud.it
+     * Port: 1521
+     * Service Name: CHCCOREC_PRY.sub0.stgchcdb.oraclevcn.com
+     * Utenza: CHC_ORC_OBJ
+     * IP: Non specificato (hostname DNS)
+   - Accesso: SQL Developer sulla macchina jumphost accessibile tramite CAPAM
+   - Link Dashboard Kibana: Non specificato (STG: ?)
+
+4. AMBIENTE PROD (Produzione)
+   - Nome: PROD
+   - Tipo: Ambiente di produzione
+   - Database Oracle:
+     * Host: oci1dba1chc1p-scan.oci.private.nexicloud.it
+     * Port: 1521
+     * Service Name: chccorep_pry.sub0.prdchcdb.oraclevcn.com
+     * Utenza: CHC_ORC_OBJ
+     * IP: Non specificato (hostname DNS)
+   - Accesso: SQL Developer sulla macchina jumphost accessibile tramite CAPAM
+   - Link Dashboard Kibana: https://opensearch.nexiprivate.it/
+   - Tenant: chc_orc
+
+COMPONENTI MENTIONATI:
+- Orchestrator (componente centrale HUB)
+- RabbitMQ (code per batch)
+- Oracle Database
+- Spring Cloud Gateway
+- WebFlux
+- Reactor
+
+================================================================================
+DOCUMENTO 6: IQC_-_Starter_guide.txt
+================================================================================
+
+AMBIENTI IDENTIFICATI CON IP:
+
+1. AMBIENTE INTEGRATION
+   - Nome: INTEGRATION
+   - Tipo: Ambiente di integrazione
+   - Database DB2:
+     * Stringa connessione: jdbc:db2://172.23.250.29:1446/D111
+     * Host: 172.23.250.29
+     * Port: 1446
+     * Database: D111
+     * IP: 172.23.250.29
+
+2. AMBIENTE STAGING
+   - Nome: STAGING
+   - Tipo: Ambiente di staging/collaudo
+   - Database DB2:
+     * Stringa connessione: jdbc:db2://172.23.250.29:1447/D311:currentPackageSet=NULLID_V11R1
+     * Host: 172.23.250.29
+     * Port: 1447
+     * Database: D311
+     * IP: 172.23.250.29
+   - Link Monitor IQC: https://stgchcp4c-monitor.private.nexicloud.it/niqc/
+   - Link Pagine Cartone:
+     * https://stgchcp4c.private.nexicloud.it/XA-IQC-BATCH/html/jobStarter.html
+     * https://stgchcp4c.private.nexicloud.it/XA-IQC-BATCH/html/jobRestarter.html
+
+3. AMBIENTE PRODUZIONE
+   - Nome: PRODUZIONE
+   - Tipo: Ambiente di produzione
+   - Database DB2:
+     * Stringa connessione: jdbc:db2://172.23.100.29:1447/D411
+     * Host: 172.23.100.29
+     * Port: 1447
+     * Database: D411
+     * IP: 172.23.100.29
+   - Link Monitor IQC: https://chcp4c-monitor.private.nexicloud.it/niqc/
+   - Link Pagine Cartone:
+     * https://chcp4c.private.nexicloud.it/XA-IQC-BATCH/html/jobStarter.html
+     * https://chcp4c.private.nexicloud.it/XA-IQC-BATCH/html/jobRestarter.html
+
+COMPONENTI MENTIONATI:
+- IQC (Smistatore)
+- Monitor IQV
+- Database DB2
+- JBOSS (per deploy integration)
+- CA PAM (per accesso jumphost)
+
+================================================================================
+DOCUMENTO 7: Indicazioni_base_ClientSW_CCR.txt
+================================================================================
+
+AMBIENTI IDENTIFICATI CON IP:
+
+1. AMBIENTE DEV (Development)
+   - Nome: DEV
+   - Tipo: Ambiente di sviluppo
+   - Database Oracle CCR:
+     * URL JDBC: jdbc:oracle:thin:@//poddb02-pesi-scan.cloudblue.local:1521/chccores_pry
+     * Host: poddb02-pesi-scan.cloudblue.local
+     * Port: 1521
+     * Database: chccores_pry
+     * Utenza: CHC_CCR_OWN_OBJ
+     * Password: PEFKQZCF
+     * IP: Non specificato (hostname DNS)
+   - Accesso: SQL Developer in locale
+
+2. AMBIENTE INT (Integration)
+   - Nome: INT
+   - Tipo: Ambiente di integrazione
+   - Database Oracle CCR:
+     * URL JDBC: jdbc:oracle:thin:@//poddb02-pesi-scan.cloudblue.local:1521/chccorei_pry
+     * Host: poddb02-pesi-scan.cloudblue.local
+     * Port: 1521
+     * Database: chccorei_pry
+     * Utenza: CHC_CCR_OWN_OBJ
+     * Password: MFMBVPOF
+     * IP: Non specificato (hostname DNS)
+   - Repository Centrale:
+     * Endpoint URL: http://10.1.32.66:30000/repository/api/content/v1
+     * Liveness: http://10.1.32.66:30000/repository/liveness
+     * IP: 10.1.32.66
+     * Port: 30000
+   - Accesso: SQL Developer in locale
+
+3. AMBIENTE STAGING
+   - Nome: STAGING
+   - Tipo: Ambiente di staging/collaudo
+   - Database Oracle CCR:
+     * Connect Identifier: (DESCRIPTION = (FAILOVER=ON) (LOAD_BALANCE=OFF) (ENABLE=BROKEN) (CONNECT_TIMEOUT=5) (RETRY_COUNT=3) (RETRY_DELAY=1) (TRANSPORT_CONNECT_TIMEOUT=3) (ADDRESS_LIST = (ADDRESS = (PROTOCOL = TCP) (HOST = oci1dba1chc1c-scan.oci.private.nexicloud.it) (PORT = 1521)) ) (CONNECT_DATA = (SERVICE_NAME = CHCCOREC_PRY.sub0.stgchcdb.oraclevcn.com)) )
+     * Host: oci1dba1chc1c-scan.oci.private.nexicloud.it
+     * Port: 1521
+     * Service Name: CHCCOREC_PRY.sub0.stgchcdb.oraclevcn.com
+     * IP: Non specificato (hostname DNS)
+   - Kibana:
+     * URL: https://10.106.4.21:8443/app/nexi_tenants
+     * IP: 10.106.4.21
+     * Port: 8443
+     * Tenant: stg_chcrepo
+   - Accesso: SQL Developer v 3.2.20 da macchina remota via CAPAM
+
+4. AMBIENTE PROD (Produzione)
+   - Nome: PROD
+   - Tipo: Ambiente di produzione
+   - Database Oracle CCR:
+     * Connect Identifier: (DESCRIPTION = (FAILOVER=ON) (LOAD_BALANCE=OFF) (ENABLE=BROKEN) (CONNECT_TIMEOUT=5) (RETRY_COUNT=3) (RETRY_DELAY=1) (TRANSPORT_CONNECT_TIMEOUT=3) (ADDRESS_LIST = (ADDRESS = (PROTOCOL = TCP) (HOST = oci1dba1chc1p-scan.oci.private.nexicloud.it) (PORT = 1521)) ) (CONNECT_DATA = (SERVICE_NAME = chccorep_pry.sub0.prdchcdb.oraclevcn.com)) )
+     * Host: oci1dba1chc1p-scan.oci.private.nexicloud.it
+     * Port: 1521
+     * Service Name: chccorep_pry.sub0.prdchcdb.oraclevcn.com
+     * IP: Non specificato (hostname DNS)
+   - OpenSearch:
+     * URL: https://opensearch.nexiprivate.it/
+     * Tenant: chc_ccr
+   - Accesso: SQL Developer v 3.2.20 da macchina remota via CAPAM
+
+COMPONENTI MENTIONATI:
+- ClientSW (Client Software)
+- CCR (CHC Hub)
+- Jenkins (Pipeline Build/Deploy)
+- Ansible (Automazione deploy)
+- Jira Nexi (Gestione ticket)
+- Liquibase (Gestione script DB)
+- OpenSearch/Kibana (Logging e monitoring)
+- Repository Centrale
+
+PIPELINE AMBIENTI:
+DEV → INT → STAGING → PROD
+
+================================================================================
+DOCUMENTO 8: Documentazione_di_handover_per_progetto_IQC.txt
+================================================================================
+
+AMBIENTI IDENTIFICATI:
+
+1. SVILUPPO
+   - Nome: SVILUPPO
+   - Tipo: Ambiente locale di sviluppo
+   - Caratteristiche:
+     * Ambiente più sbandato e meno allineato
+     * Ideale per esperimenti e correzione bug
+   - IP: Non specificato
+
+2. COLLAUDO
+   - Nome: COLLAUDO
+   - Tipo: Ambiente di test
+   - Caratteristiche:
+     * Non molto affidabile come allineamento tabelle
+     * Consente simulazione maggiore di produzione
+   - IP: Non specificato
+
+3. VALIDAZIONE
+   - Nome: VALIDAZIONE
+   - Tipo: Ambiente di validazione
+   - Caratteristiche:
+     * Solo versioni testate e funzionanti
+     * In comunicazione con ambienti di test interni ed esterni
+     * Allineato al 99% con Produzione
+   - Link Monitor IQV: http://iqv-us.validazione.usinet.it/XA-IQV-PF/pages/login.xhtml
+   - Link Pagine Cartone:
+     * http://iqc.validazione.usinet.it/XA-IQC-BATCH/html/jobStarter.html
+     * http://iqc.validazione.usinet.it/XA-IQC-BATCH/html/jobRestarter.html
+   - IP: Non specificato
+
+4. PRODUZIONE
+   - Nome: PRODUZIONE
+   - Tipo: Ambiente reale
+   - Caratteristiche:
+     * Ambiente reale dove soldi e comunicazioni girano veramente
+     * Errore ASSOLUTAMENTE DA EVITARE
+   - Link Monitor IQV: https://iqv-us.unicreditgroup.eu/XA-IQV-PF/pages/login.xhtml
+   - Link Pagine Cartone:
+     * https://iqc-us.unicreditgroup.eu/XA-IQC-BATCH/html/jobStarter.html
+     * https://iqc-us.unicreditgroup.eu/XA-IQC-BATCH/html/jobRestarter.html
+   - IP: Non specificato
+
+COMPONENTI MENTIONATI:
+- IQC (Smistatore)
+- IQV (Monitor)
+- Database DB2
+- WebSphere (Server applicativo)
+- Quartz (Schedulazione)
+- NAS W.O.R.M. (Network Attached Storage)
+- NAS SNAPSHOT
+- Diagnostico (Applicazione Engineering)
+- PkBox (Applicazione Intesi per firma digitale)
+
+PIPELINE AMBIENTI:
+SVILUPPO → COLLAUDO → VALIDAZIONE → PRODUZIONE
+
+================================================================================
+DOCUMENTO 9: CHC_AF_HubDashboard_QUERY_v2_6.txt
+================================================================================
+
+AMBIENTI IDENTIFICATI:
+
+Nessun ambiente specifico identificato in questo documento.
+Il documento descrive query SQL per Dashboard senza specificare ambienti o IP.
+
+COMPONENTI MENTIONATI:
+- Dashboard CHC
+- DB Eventi (Database Oracle)
+- EasyLake (Generatore Report)
+- Splunk (Segnalatore Alert)
+
+================================================================================
+DOCUMENTO 10: CHC_AF_Dashboard_Gestione_SLA_Template_Report_v_1_7.txt
+================================================================================
+
+AMBIENTI IDENTIFICATI:
+
+Nessun ambiente specifico identificato in questo documento.
+Il documento descrive gestione SLA e template report senza specificare ambienti o IP.
+
+================================================================================
+DOCUMENTO 11: CHC_AF_Dashboard_Gestione_Report_SLA_Periodici_v1_3.txt
+================================================================================
+
+AMBIENTI IDENTIFICATI:
+
+Nessun ambiente specifico identificato in questo documento.
+Il documento descrive gestione report SLA periodici senza specificare ambienti o IP.
+
+================================================================================
+RIEPILOGO COMPLETO - AMBIENTI E IP
+================================================================================
+
+AMBIENTI TROVATI NELLA DOCUMENTAZIONE:
+
+1. TAS (Test/Sviluppo) - Dashboard CHC.md
+2. INT (Integrazione) - Dashboard CHC.md, ORCHESTRATOR.txt, Indicazioni_base_ClientSW_CCR.txt
+3. PRODUZIONE/PROD - Dashboard CHC.md, ORCHESTRATOR.txt, IQC_-_Starter_guide.txt, Indicazioni_base_ClientSW_CCR.txt, Documentazione_di_handover_per_progetto_IQC.txt
+4. SVILUPPO LOCALE/LOCALE - Dashboard CHC.md
+5. DEV (Development) - ORCHESTRATOR.txt, Indicazioni_base_ClientSW_CCR.txt
+6. STG/STAGING (Staging/Collaudo) - ORCHESTRATOR.txt, IQC_-_Starter_guide.txt, Indicazioni_base_ClientSW_CCR.txt
+7. INTEGRATION - IQC_-_Starter_guide.txt
+8. SVILUPPO - Documentazione_di_handover_per_progetto_IQC.txt
+9. COLLAUDO - Documentazione_di_handover_per_progetto_IQC.txt
+10. VALIDAZIONE - Documentazione_di_handover_per_progetto_IQC.txt
+11. AMBIENTE DIPARTIMENTALE (SI Std) - HUB_CBI_ClientSW_CCR_ITA_v1_0_23.txt
+12. AMBIENTE MAINFRAME (EAS) - HUB_CBI_ClientSW_CCR_ITA_v1_0_23.txt
+13. AMBIENTE OPEN - HUB_CBI_ClientSW_CCR_ITA_v1_0_23.txt
+
+================================================================================
+IP E HOSTNAME TROVATI NELLA DOCUMENTAZIONE
+================================================================================
+
+AMBIENTE DEV (Development):
+- Database Oracle Orchestrator:
+  * IP: 10.106.14.108
+  * Port: 1521
+  * Database: chccores_pry
+  * Hostname: 10.106.14.108
+
+AMBIENTE INT (Integration):
+- Database Oracle Orchestrator:
+  * Hostname: poddb02-pesi-scan.cloudblue.local
+  * Port: 1521
+  * Database: chccorei_pry
+  
+- Database Oracle CCR:
+  * Hostname: poddb02-pesi-scan.cloudblue.local
+  * Port: 1521
+  * Database: chccores_pry (DEV) / chccorei_pry (INT)
+
+- Repository Centrale INT:
+  * IP: 10.1.32.66
+  * Port: 30000
+  * Endpoint: http://10.1.32.66:30000/repository/api/content/v1
+  * Liveness: http://10.1.32.66:30000/repository/liveness
+
+AMBIENTE INTEGRATION (IQC):
+- Database DB2:
+  * IP: 172.23.250.29
+  * Port: 1446
+  * Database: D111
+
+AMBIENTE STG/STAGING:
+- Database Oracle Orchestrator:
+  * Hostname: oci1dba1chc1c-scan.oci.private.nexicloud.it
+  * Port: 1521
+  * Service Name: CHCCOREC_PRY.sub0.stgchcdb.oraclevcn.com
+
+- Database Oracle CCR:
+  * Hostname: oci1dba1chc1c-scan.oci.private.nexicloud.it
+  * Port: 1521
+  * Service Name: CHCCOREC_PRY.sub0.stgchcdb.oraclevcn.com
+
+- Database DB2 IQC:
+  * IP: 172.23.250.29
+  * Port: 1447
+  * Database: D311
+
+- Kibana:
+  * IP: 10.106.4.21
+  * Port: 8443
+  * URL: https://10.106.4.21:8443/app/nexi_tenants
+  * Tenant: stg_chcrepo
+
+- Monitor IQC:
+  * URL: https://stgchcp4c-monitor.private.nexicloud.it/niqc/
+
+- Pagine Cartone IQC:
+  * https://stgchcp4c.private.nexicloud.it/XA-IQC-BATCH/html/jobStarter.html
+  * https://stgchcp4c.private.nexicloud.it/XA-IQC-BATCH/html/jobRestarter.html
+
+AMBIENTE PROD/PRODUZIONE:
+- Database Oracle Orchestrator:
+  * Hostname: oci1dba1chc1p-scan.oci.private.nexicloud.it
+  * Port: 1521
+  * Service Name: chccorep_pry.sub0.prdchcdb.oraclevcn.com
+
+- Database Oracle CCR:
+  * Hostname: oci1dba1chc1p-scan.oci.private.nexicloud.it
+  * Port: 1521
+  * Service Name: chccorep_pry.sub0.prdchcdb.oraclevcn.com
+
+- Database DB2 IQC:
+  * IP: 172.23.100.29
+  * Port: 1447
+  * Database: D411
+
+- OpenSearch:
+  * URL: https://opensearch.nexiprivate.it/
+  * Tenant Orchestrator: chc_orc
+  * Tenant CCR: chc_ccr
+
+- Monitor IQC:
+  * URL: https://chcp4c-monitor.private.nexicloud.it/niqc/
+
+- Pagine Cartone IQC:
+  * https://chcp4c.private.nexicloud.it/XA-IQC-BATCH/html/jobStarter.html
+  * https://chcp4c.private.nexicloud.it/XA-IQC-BATCH/html/jobRestarter.html
+
+AMBIENTE VALIDAZIONE (IQC):
+- Monitor IQV:
+  * URL: http://iqv-us.validazione.usinet.it/XA-IQV-PF/pages/login.xhtml
+
+- Pagine Cartone IQC:
+  * http://iqc.validazione.usinet.it/XA-IQC-BATCH/html/jobStarter.html
+  * http://iqc.validazione.usinet.it/XA-IQC-BATCH/html/jobRestarter.html
+
+AMBIENTE PRODUZIONE (IQC):
+- Monitor IQV:
+  * URL: https://iqv-us.unicreditgroup.eu/XA-IQV-PF/pages/login.xhtml
+
+- Pagine Cartone IQC:
+  * https://iqc-us.unicreditgroup.eu/XA-IQC-BATCH/html/jobStarter.html
+  * https://iqc-us.unicreditgroup.eu/XA-IQC-BATCH/html/jobRestarter.html
+
+================================================================================
+RIEPILOGO IP E PORTE
+================================================================================
+
+IP INDIRIZZI TROVATI:
+1. 10.106.14.108:1521 (DEV - Database Oracle Orchestrator)
+2. 10.1.32.66:30000 (INT - Repository Centrale)
+3. 10.106.4.21:8443 (STG - Kibana)
+4. 172.23.250.29:1446 (INTEGRATION - Database DB2 IQC)
+5. 172.23.250.29:1447 (STAGING - Database DB2 IQC)
+6. 172.23.100.29:1447 (PRODUZIONE - Database DB2 IQC)
+
+HOSTNAME TROVATI:
+1. poddb02-pesi-scan.cloudblue.local (INT - Database Oracle)
+2. oci1dba1chc1c-scan.oci.private.nexicloud.it (STG - Database Oracle)
+3. oci1dba1chc1p-scan.oci.private.nexicloud.it (PROD - Database Oracle)
+4. stgchcp4c-monitor.private.nexicloud.it (STG - Monitor IQC)
+5. chcp4c-monitor.private.nexicloud.it (PROD - Monitor IQC)
+6. stgchcp4c.private.nexicloud.it (STG - Pagine Cartone IQC)
+7. chcp4c.private.nexicloud.it (PROD - Pagine Cartone IQC)
+8. opensearch.nexiprivate.it (PROD - OpenSearch)
+9. iqv-us.validazione.usinet.it (VALIDAZIONE - Monitor IQV)
+10. iqc.validazione.usinet.it (VALIDAZIONE - Pagine Cartone IQC)
+11. iqv-us.unicreditgroup.eu (PROD - Monitor IQV)
+12. iqc-us.unicreditgroup.eu (PROD - Pagine Cartone IQC)
+
+================================================================================
+NOTE IMPORTANTI
+================================================================================
+
+1. Gli IP specifici sono stati trovati principalmente per:
+   - Database Oracle (DEV, INT, STG, PROD)
+   - Database DB2 (INTEGRATION, STAGING, PRODUZIONE per IQC)
+   - Repository Centrale (INT)
+   - Kibana/OpenSearch (STG, PROD)
+
+2. Molti hostname utilizzano DNS interni Nexi/Unicredit e non sono risolvibili pubblicamente.
+
+3. Per accedere agli ambienti STG e PROD è necessario:
+   - Accesso tramite CAPAM (CA Privileged Access Manager)
+   - Utenza CO*** per database
+   - SQL Developer installato sulla macchina jumphost
+
+4. Gli ambienti DEV e INT sono accessibili direttamente dalla propria macchina.
+
+5. Le password per i database DEV e INT sono presenti nella documentazione ma sono state omesse per sicurezza.
