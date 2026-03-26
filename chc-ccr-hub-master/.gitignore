@@ -1,0 +1,52 @@
+# Eclipse
+.classpath
+.project
+.settings
+bin/
+
+# Intellij
+.idea/
+*.iml
+*.iws
+
+# Mac
+.DS_Store
+
+# Maven
+log
+target
+.flattened-pom.xml
+
+# Gradle
+.gradle
+
+.springBeans
+build
+*.log
+/.checkstyle
+
+
+# Testing
+.driver
+.gatling
+error-screenshots
+selenium_standalone_zips
+webdriver/
+
+# macOs
+.DS_Store
+
+# Frontend
+/build-tools/bin/
+/build-tools/etc/
+/build-tools/lib/
+/build-tools/node/
+/build-tools/node_modules/
+/build-tools/yarn.lock
+
+/package-lock.json
+/dist
+/node_modules
+
+
+/core

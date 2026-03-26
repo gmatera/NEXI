@@ -1,0 +1,173 @@
+spring:
+  cloud: 
+    config: 
+      name: chc-ccr-all-app
+      import-check: 
+        enabled: 'false'
+    
+  datasource: 
+    # POSTGRESS
+    url: jdbc:postgresql://chc_database:5432/ccr
+    username: postgres
+    password: postgres
+    # ORACLE
+#    url: jdbc:oracle:thin:@//chc_database:1521/XE
+#    username: CHC_CCR_OWN_OBJ
+#    password: CHC_CCR_OWN_OBJ
+  jpa:
+    show-sql: 'false'
+    open-in-view: false
+  liquibase:
+    enabled: 'true'
+    change-log: classpath:db/changelog/ccr-changelog-master.yaml
+  
+  # for inbound multipart files
+  servlet:
+    multipart:
+      max-file-size: 4GB
+      max-request-size: 4GB
+      location: /tmp/chc/ccr/inbound
+         
+  output:
+    ansi:
+      enabled: 'ALWAYS'
+server:
+  port: '50001'
+
+#  config: 
+#    import: configserver:http://localhost:8081
+eureka: 
+  client:
+    enabled: false
+    
+logging:
+  level:
+    root: INFO
+    org:
+      springframework: INFO
+    com:
+      cbi: 
+        ccr: DEBUG
+
+springdoc:
+  swagger-ui:
+    enabled: 'true'
+
+integration_test_active: 'true'
+
+
+##############################################################################
+#
+# IMPORTANTE!  IMPORTANTE! IMPORTANTE!
+#
+# Se si aggiungono nuovi parametri vanno messi anche in: 
+# ansible-chc-ccr-pod/roles/ms_deploy_offline_property/templates/chc-ccr-all-app.j2
+#
+# inserendo le veriabili in base all'ambiente in: es per development
+# ansible-chc-ccr-pod/inventories/development/group_vars/all/hub_microservice_ccr.yml
+#
+#
+##############################################################################
+# ambiente DEV
+#repo_endpoint_url: http://10.1.32.16:30000/repository/api/content/v1
+repo_endpoint_url: http://localhost:30000/repository/api/content/v1
+#repo_endpoint_url: http://10.1.32.18:4000/repository/api/content/v1
+#repo_endpoint_url: http://10.1.32.52:4000/zuul/repository/api/content/v1
+
+nexi-oauth-token-url: https://intapi.nexi.it:8443/chc/oauth/v2/token
+ccr-client-id: f29c6ec6-f608-46c2-b7a7-040c9e76449e
+ccr-client-secret: 11738d00-909b-45fa-b1f3-2f3eba1a9084
+#ccr_public_key: -----BEGIN PUBLIC KEY-----MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAw/5zhyGCj/j1ibLq7cXKw+BhLJdzuzMYfZ1UFTAvYtQJpXkOxcGpRi5YYOFX0qkaDdzr/A5eOQDFra9WkZHPdnJJivmlLsAnwC/VHG0sKD3/8h7Ht+3fb+qRBjjTTV3aq/IQLc3OtGYf5N+z0bkorpnmNF0k1gNO+GVZXhcBQiC8IXE0e43Ej+crk/RuN0ybJxQAof+UkEO79ATr4JZ9sj4coYeo1EIe+eqaCW/0ZjkI736jm5AQYHyH91sIWQfghex7A6fEZva/qyQ2ez4/o2k9JxxKxEHNyZ/Vpn/vrKAbHalHO2goUOu8ocFn+qss06teyR5lQVRMpxaZqR3MUwIDAQAB-----END PUBLIC KEY-----
+
+ccr_public_key: |
+  -----BEGIN PUBLIC KEY-----
+  MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAw/5zhyGCj/j1ibLq7cXK
+  w+BhLJdzuzMYfZ1UFTAvYtQJpXkOxcGpRi5YYOFX0qkaDdzr/A5eOQDFra9WkZHP
+  dnJJivmlLsAnwC/VHG0sKD3/8h7Ht+3fb+qRBjjTTV3aq/IQLc3OtGYf5N+z0bko
+  rpnmNF0k1gNO+GVZXhcBQiC8IXE0e43Ej+crk/RuN0ybJxQAof+UkEO79ATr4JZ9
+  sj4coYeo1EIe+eqaCW/0ZjkI736jm5AQYHyH91sIWQfghex7A6fEZva/qyQ2ez4/
+  o2k9JxxKxEHNyZ/Vpn/vrKAbHalHO2goUOu8ocFn+qss06teyR5lQVRMpxaZqR3M
+  UwIDAQAB
+  -----END PUBLIC KEY-----
+  
+  
+#ccr_private_key: -----BEGIN PRIVATE KEY-----MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDD/nOHIYKP+PWJsurtxcrD4GEsl3O7Mxh9nVQVMC9i1AmleQ7FwalGLlhg4VfSqRoN3Ov8Dl45AMWtr1aRkc92ckmK+aUuwCfAL9UcbSwoPf/yHse37d9v6pEGONNNXdqr8hAtzc60Zh/k37PRuSiumeY0XSTWA074ZVleFwFCILwhcTR7jcSP5yuT9G43TJsnFACh/5SQQ7v0BOvgln2yPhyhh6jUQh756poJb/RmOQjvfqObkBBgfIf3WwhZB+CF7HsDp8Rm9r+rJDZ7Pj+jaT0nHErEQc3Jn9Wmf++soBsdqUc7aChQ67yhwWf6qyzTq17JHmVBVEynFpmpHcxTAgMBAAECggEBAKetFSFSpeSOVWJM03hAc0xItlnz6GsLN7Sf2MOXybJ/PRF4FA9Ts4H7PFkF8KClU0jw7GNj13BlHLmO/DzlxdvLwudG1O6+LkPZqDT9oX18LW/yrWLJ+xJAV3o/O2dBGEdqfDTzkhf8FuU0DR8rjYZy2+OInG8LvY/9BQveGpF6+IHxiwdRwisY7dc/7UiYeHTj4U2G0XvoKb5kPQ/ijWrKDZWB+oMce2iKCs6iAhUjC8dd3JkGXNu7Ua1suqJxTW0fqCX/kD4V/9Gd28Y8UleOIjnpGHZtVvRyoZXCt6sdHu7EklUCcrEGGXzWVreqrK72cpXVh0qUYIAdsb0Wc8ECgYEA5zMRwBcUMH8E2dImNt8Nl0P3RRH44X4nuh6TBgSlD4vW9OA3DtwkBoM9icChPj6jAjlO0M2koyp54kcX5xXvwAHxVi3QlokaC2IAU8frcy6IoALIpzbBCLX9TRjAtJBdvac/Wodv4BItVESqPxLw3hF7FsHKNYEtKDibExaMpRkCgYEA2QSbxlGa5w0y7ipIfPaCjIdazOgS+iPV9X6FCmK60Px0OvO+Eq+rsxP5Jwml/7SvWoMT9BXrU6HpFxCuxmLyNmcHQ9uFlfFpgeX60qDNw7DMQpdRKZdNY2B7CdI7333728YQNYfgy/IklKhWR9WfS1X2fQvgPpSBKuBYfNyknksCgYACSh4t4cygYlGg+pTITFMtIU4sj+4ABajNDgp0r80Wp1Lcn+/LpOBydBBC8fZm0GX62qhuJusvdnc4h220KyJxq1NBgDillPv+Ct1n9v3c6SQPOZfVGBS3Sl4Uyl72KsvS2fololu4Q1XRlNB+yWg7Or8WTZr8Bqh00oKuoLWJ2QKBgBzOQssJK/F9TARW8nY71kpG8SN/rn0rYowKdihRwJBa4iatEc6zKKxFe23WFwWg+yGdgnmEq07Xj/Pyz/AfVB0qgcldCxdDCwkl+KwakhVmk0ZHhYtqvOfy94HvOOlKdLLQUHh6h7kqc/aTfZhdX56FU4l3mRVVauvBCZ3RP7yPAoGAUN+oLcSKFNYsAHuAkqlRuIvRrIiv0QjGoe5PYjHgXb8tGska+T2m9L42ITwQQvRAD8N3r9NqQ4gFoqTh8MBQYBw9IRjl2cFtOmjU8piWOV5UT8cih7ChtF07hUq17+wPagJH3RDE4mkwnzxr/ENlnm8Gt1cxYwWOFY0ZgCgkxnY=-----END PRIVATE KEY-----
+
+ccr_private_key: | 
+  -----BEGIN PRIVATE KEY-----
+  MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDD/nOHIYKP+PWJ
+  surtxcrD4GEsl3O7Mxh9nVQVMC9i1AmleQ7FwalGLlhg4VfSqRoN3Ov8Dl45AMWt
+  r1aRkc92ckmK+aUuwCfAL9UcbSwoPf/yHse37d9v6pEGONNNXdqr8hAtzc60Zh/k
+  37PRuSiumeY0XSTWA074ZVleFwFCILwhcTR7jcSP5yuT9G43TJsnFACh/5SQQ7v0
+  BOvgln2yPhyhh6jUQh756poJb/RmOQjvfqObkBBgfIf3WwhZB+CF7HsDp8Rm9r+r
+  JDZ7Pj+jaT0nHErEQc3Jn9Wmf++soBsdqUc7aChQ67yhwWf6qyzTq17JHmVBVEyn
+  FpmpHcxTAgMBAAECggEBAKetFSFSpeSOVWJM03hAc0xItlnz6GsLN7Sf2MOXybJ/
+  PRF4FA9Ts4H7PFkF8KClU0jw7GNj13BlHLmO/DzlxdvLwudG1O6+LkPZqDT9oX18
+  LW/yrWLJ+xJAV3o/O2dBGEdqfDTzkhf8FuU0DR8rjYZy2+OInG8LvY/9BQveGpF6
+  +IHxiwdRwisY7dc/7UiYeHTj4U2G0XvoKb5kPQ/ijWrKDZWB+oMce2iKCs6iAhUj
+  C8dd3JkGXNu7Ua1suqJxTW0fqCX/kD4V/9Gd28Y8UleOIjnpGHZtVvRyoZXCt6sd
+  Hu7EklUCcrEGGXzWVreqrK72cpXVh0qUYIAdsb0Wc8ECgYEA5zMRwBcUMH8E2dIm
+  Nt8Nl0P3RRH44X4nuh6TBgSlD4vW9OA3DtwkBoM9icChPj6jAjlO0M2koyp54kcX
+  5xXvwAHxVi3QlokaC2IAU8frcy6IoALIpzbBCLX9TRjAtJBdvac/Wodv4BItVESq
+  PxLw3hF7FsHKNYEtKDibExaMpRkCgYEA2QSbxlGa5w0y7ipIfPaCjIdazOgS+iPV
+  9X6FCmK60Px0OvO+Eq+rsxP5Jwml/7SvWoMT9BXrU6HpFxCuxmLyNmcHQ9uFlfFp
+  geX60qDNw7DMQpdRKZdNY2B7CdI7333728YQNYfgy/IklKhWR9WfS1X2fQvgPpSB
+  KuBYfNyknksCgYACSh4t4cygYlGg+pTITFMtIU4sj+4ABajNDgp0r80Wp1Lcn+/L
+  pOBydBBC8fZm0GX62qhuJusvdnc4h220KyJxq1NBgDillPv+Ct1n9v3c6SQPOZfV
+  GBS3Sl4Uyl72KsvS2fololu4Q1XRlNB+yWg7Or8WTZr8Bqh00oKuoLWJ2QKBgBzO
+  QssJK/F9TARW8nY71kpG8SN/rn0rYowKdihRwJBa4iatEc6zKKxFe23WFwWg+yGd
+  gnmEq07Xj/Pyz/AfVB0qgcldCxdDCwkl+KwakhVmk0ZHhYtqvOfy94HvOOlKdLLQ
+  UHh6h7kqc/aTfZhdX56FU4l3mRVVauvBCZ3RP7yPAoGAUN+oLcSKFNYsAHuAkqlR
+  uIvRrIiv0QjGoe5PYjHgXb8tGska+T2m9L42ITwQQvRAD8N3r9NqQ4gFoqTh8MBQ
+  YBw9IRjl2cFtOmjU8piWOV5UT8cih7ChtF07hUq17+wPagJH3RDE4mkwnzxr/ENl
+  nm8Gt1cxYwWOFY0ZgCgkxnY=
+  -----END PRIVATE KEY-----
+  
+#SECURITY
+enable_security: true
+enable_encryption: true
+zuul_certificate_url: https://intapi.nexi.it/getZuulSignatureKey
+enable_jwt_token_validation: false
+jwt_scope_validation: Tech_CHC_CCRServer
+
+#crypto_hub_url: http://10.1.32.51:8038/chc-cryptohub/getkey
+#crypto_hub_url: https://intapi.nexi.it/b2b/chc/cryptohub/getkey
+crypto_hub_url: http://localhost:60005/chc-cryptohub/rest/getkey
+
+########### INBOUND
+# update also the values in chc-ccr-orchestrator-simulator
+#Form CCR to Orchestrator
+orchestrator_exchange: chc_cmd_ccr2_exchange
+orchestrator_routing_key: chc_cmd_ccr2orc
+#Form CCR to dashboard
+dashboard_exchange: chc_evn_ccr2_distributor_exchange
+dashboard_routing_key: chc_evn_ccr2dsh_batch
+# TODO da gestire
+dashboard_routing_key_online: chc_evn_ccr2dsh_online
+orchestrator_femws_endpoint: http://localhost:60005/orchestrator/simulator/femws
+chc_id_generator_service_url: http://localhost:60005
+########### INBOUND END
+
+########### OUTBOUND
+local_storage_path: /tmp/chc/ccr/outbound
+# From Orchestrator to CCR
+ccr_queue: chc_cmd_orc2ccr_queue
+
+# number of thread for each RabbitMQ listener, can be 1-5 or 5 or more
+outbound_mq_listener_concurrency: 5
+########### OUTBOUND END
+
+########### POLLER
+fixedPollerDelay: 5000
+max_retry_attempts: 2
+
+# baUrl local cache will be reloaded every xx milli seconds
+# non modificare altromenti fallisono i test
+routing_client_reload_millisec: 5000
+routing_client_dam_url: 
+
+# Proxy server configuration for outgoing http calls
+proxy_host:
+proxy_port:
+proxy_user:
+proxy_password:

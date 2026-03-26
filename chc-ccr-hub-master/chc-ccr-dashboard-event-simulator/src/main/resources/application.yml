@@ -1,0 +1,37 @@
+spring:
+  profiles:
+    active: default
+  cloud: 
+    config: 
+      import-check: 
+        enabled: 'false'
+
+server:
+  port: '60006'
+    
+logging:
+  level:
+    org:
+      springframework:
+        web:
+          servlet:
+            mvc:
+              method:
+                annotation: DEBUG
+          nodeValue: INFO
+        security: INFO
+    com:
+      cbi: DEBUG
+      
+
+eureka:
+  client:
+    enabled: false
+
+dashboard_exchange: dashboard_queue_exch
+dashboard_routing_key: dash
+dashboard_queue: dashboard_queue
+dashboard_queue_durable: false
+
+spring.rabbitmq.username: chcadmin
+spring.rabbitmq.password: chcint

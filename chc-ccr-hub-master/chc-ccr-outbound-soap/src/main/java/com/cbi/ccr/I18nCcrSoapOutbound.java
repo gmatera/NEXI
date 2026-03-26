@@ -1,0 +1,11 @@
+package com.cbi.ccr;
+
+public enum I18nCcrSoapOutbound {
+	
+	MISSING_CLIENT_ID,
+	
+	FEMWS_HEADER_NOT_FOUND,
+	FEMWS_SERVER_NET_CODE_NOT_FOUND,
+	FEMWS_APPL_CODE_NOT_FOUND,
+	FEMWS_ENV_NOT_FOUND,
+}

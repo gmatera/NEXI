@@ -1,0 +1,6 @@
+server.port=60006
+
+dashboard_exchange=dashboard_queue_exch
+dashboard_routing_key=dash
+dashboard_queue=dashboard_queue
+dashboard_queue_durable=false

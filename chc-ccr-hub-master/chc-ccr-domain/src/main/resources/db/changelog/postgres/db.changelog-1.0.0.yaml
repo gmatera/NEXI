@@ -1,0 +1,32 @@
+databaseChangeLog:
+  - changeSet:
+      id: "1.0.0"
+      author: Eng
+      changes:  
+      - tagDatabase:  
+          tag:  version_1.0.0
+    
+  - changeSet:
+      id: ccr_initial_tables
+      author: Eng
+      dbms: postgresql
+      changes:
+      - sqlFile:
+          encoding: utf8
+          endDelimiter: ;
+          path: 00_table.sql
+          relativeToChangelogFile: true
+          splitStatements: true
+          stripComments: true
+  - changeSet:
+      id: ccr_alter
+      author: Eng
+      dbms: postgresql
+      changes:
+      - sqlFile:
+          encoding: utf8
+          endDelimiter: ;
+          path: 01_alter.sql
+          relativeToChangelogFile: true
+          splitStatements: true
+          stripComments: true

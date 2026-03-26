@@ -1,0 +1,8 @@
+package com.cbi.ccr.common;
+
+public enum I18nCccrCommon {
+	
+	ERR_REPOSITORY_UNAVAILABLE,
+	MISSING_BA_URL_CONFIGURATION,
+	CHC_ID_GENERATOR_SERVICE_UNAVAILABLE;
+}

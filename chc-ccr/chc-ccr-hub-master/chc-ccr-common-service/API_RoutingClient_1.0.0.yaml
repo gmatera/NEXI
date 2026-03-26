@@ -1,0 +1,82 @@
+openapi: 3.0.1
+info:
+  title: API Routing Client
+  description: In questa sezione sono descritte le APIs DAM.
+  version: 1.0.0
+servers:
+  - url: /
+paths:
+  /dam/routingClientSW:
+    get:
+      summary: Estrazione elenco routing client SW
+      description: Questa API restiuisce i routing attivi
+      parameters:
+        - name: requestId
+          in: header
+          description: Identificativo Richiesta
+          required: true
+          schema:
+            type: string
+        - name: requestDate
+          in: header
+          description: Data invio richiesta AAAA-MM-DDTHH:MM:SS.sssZ
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Service executed successfully
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ResultElencoRouting'
+        '500':
+          description: Errore
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ResultDetails'
+components:
+  schemas:
+    ResultDetails:
+      title: ResultDetails
+      type: object
+      properties:
+        outcomeCode:
+          type: integer
+          description: 'Codice esito: per esiti OK P000'
+        outcomeDescription:
+          type: string
+          description: Descrizione estesa dell esito
+          example: OK
+        outcomeType:
+          type: string
+          description: S | W | E (Success | Warning | Error)
+          example: S
+        userFeedback:
+          type: string
+          description: Messaggio di output user-friendly per l’utente
+          example: OK
+    ResultElencoRouting:
+      type: object
+      properties:
+        resultDetails:
+          $ref: '#/components/schemas/ResultDetails'
+        routingClients:
+          $ref: '#/components/schemas/ListaRoutingCSW'
+    RoutingCSW:
+      type: object
+      properties:
+        baId:
+          type: string
+          example: 12935NCB01PR
+        url:
+          type: string
+          example: http://11.111.111.1:40001
+        clientId:
+          type: string
+          example: 235
+    ListaRoutingCSW:
+      type: array
+      items:
+        $ref: '#/components/schemas/RoutingCSW'

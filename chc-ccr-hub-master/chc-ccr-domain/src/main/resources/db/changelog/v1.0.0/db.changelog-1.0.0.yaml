@@ -1,0 +1,38 @@
+databaseChangeLog:
+  - property:
+      dbms: oracle
+      name: data_tablespace
+      value: CCR
+  - property:
+      dbms: oracle
+      name: indx_tablespace
+      value: CCR      
+
+  - changeSet:
+      id: "1.0.0"
+      author: Eng
+      changes:  
+      - tagDatabase:  
+          tag:  version_1.0.0
+    
+  - changeSet:
+      id: ccr_initial_tables
+      author: Eng
+      dbms: oracle
+      changes:
+      - sqlFile:
+          encoding: utf8
+          endDelimiter: ;
+          path: 0000_ccr_table.sql
+          relativeToChangelogFile: true
+          splitStatements: true
+          stripComments: true
+      rollback:  
+        - sqlFile:
+            encoding: utf8
+            endDelimiter: ;
+            path: 0000_ccr_table_roolback.sql
+            relativeToChangelogFile: true
+            splitStatements: true
+            stripComments: true
+

@@ -1,0 +1,77 @@
+
+spring:
+  cloud:
+    config:
+      name: gateway
+      discovery:
+        service-id: config
+        enabled: true
+  config: 
+    import: configserver:http://localhost:8081
+
+eureka: 
+  client:
+    enabled: true
+    serviceUrl: 
+      defaultZone: http://localhost:8082/eureka/
+    region: default
+    registryFetchIntervalSeconds: 5
+
+zuul:
+  sensitiveHeaders:
+  host:
+    connect-timeout-millis: 60000
+    socket-timeout-millis: 60000
+    time-to-live: -1
+#  SendResponseFilter:
+#    post:
+#      disable: true
+  debug:
+    request: false
+    
+  routes:
+    chc-ccr-all-app:
+      path: /ccr/**
+      service-id: chc-ccr-all-app
+      strip-prefix: false
+      
+    chc-ccr-all-batch-app-fms:
+      path: /ccr/api/v1/message/fms/**
+      service-id: chc-ccr-all-app
+      strip-prefix: false
+      
+    chc-ccr-all-batch-app-fts:
+      path: /ccr/api/v1/message/fts/**
+      service-id: chc-ccr-all-app
+      strip-prefix: false
+
+    chc-ccr-all-batch-app-mss:
+      path: /ccr/api/v1/message/mss/**
+      service-id: chc-ccr-all-app
+      strip-prefix: false
+
+    chc-ccr-all-soap-app:
+      path: /ccr/api/v1/message/soap/**
+      service-id: chc-ccr-all-app
+      strip-prefix: false
+
+    chc-repo-app:
+      path: /repository/**
+      service-id: chc-ccr-all-app
+      strip-prefix: false
+
+hystrix:
+  command:
+    default:
+      execution: 
+        isolation: 
+          thread:
+            timeoutInMilliseconds: 6000000
+
+ribbon:
+  ConnectTimeout: 10000
+  ReadTimeout: 6000000
+    
+             
+
+          

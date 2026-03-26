@@ -1,0 +1,85 @@
+pipeline {
+    agent { label "generic-jenkins-slave" }
+
+    parameters {
+        string(name: 'BRANCH', defaultValue: '1.4.0-SNAPSHOT')
+        string(name: 'PROJECT_GIT_URL', defaultValue: 'https://nexigroup.ghe.com/ItalyNexi/chc-ccr-hub.git')
+        credentials(name: 'GIT_CREDENTIALS', defaultValue: 'michele.faugiana', credentialType: "Username with password", description: 'nexigroup.ghe.com credentials')
+    }
+
+    stages{
+        stage('Checkout Maven project') {
+            steps {
+                cleanWs(deleteDirs: true, disableDeferredWipeout: false)
+                checkout([$class: 'GitSCM',
+                branches: [[name: params.BRANCH]],
+                gitTool: 'git',
+                userRemoteConfigs: [[
+                    credentialsId: params.GIT_CREDENTIALS,
+                    url: params.PROJECT_GIT_URL
+                ]]])
+            }
+        }
+
+        stage('Build Maven project') {
+            steps {
+                withMaven(maven:'maven-3.3.9',
+                mavenSettingsConfig: 'maven-3.3.9-settings-nexicloud.xml',
+                mavenOpts: '-Xmx512m -XX:MaxPermSize=1024m'){
+                    sh 'mvn -Pdeploy -U -f pom.xml clean install'
+                }
+            }
+        }
+
+        stage('Unit tests'){
+            steps {
+                withMaven(maven:'maven-3.3.9', 
+                mavenSettingsConfig: 'maven-3.3.9-settings-nexicloud.xml', 
+                mavenOpts: '-Xmx512m -XX:MaxPermSize=1024m') {
+                    sh 'mvn -f pom.xml clean test'
+                }
+            }
+        }
+/*
+        stage('SonarQube Analysis') {
+            steps {
+                withMaven(maven:'maven-3.3.9',
+                mavenSettingsConfig: 'maven-3.3.9-settings-nexicloud.xml',
+                mavenOpts: '-Xmx512m -XX:MaxPermSize=1024m'){
+                    withSonarQubeEnv('SonarQube') {
+                        sh 'mvn -f pom.xml sonar:sonar'
+                    }
+                }
+            }
+        }
+ 
+        stage('Wait for Quality Gate') {
+            steps {
+               
+               
+                timeout(time: 1, unit: 'MINUTES') {
+                    waitForQualityGate abortPipeline: false
+                }
+            }
+        }
+ */
+        stage('Upload to Artifactory'){
+            steps {
+                withMaven(maven: 'maven-3.3.9', 
+                mavenSettingsConfig: 'maven-3.3.9-settings-nexicloud.xml', 
+                mavenOpts: '-Xmx512m -XX:MaxPermSize=1024m') {
+                    sh 'mvn -f pom.xml deploy'
+                }
+            }
+        }
+    }
+
+    post {
+        always {
+            emailext body: "<b>Number Build:</b><br> #${BUILD_NUMBER}<br><br><b>Result Build:</b><br>${currentBuild.currentResult}<br><br><b>Name Build:</b><br>${JOB_NAME}<br><br><b>URL Build:</b><br>${BUILD_URL}<br><br><b>Build Console URL:</b><br>${BUILD_URL}console", 
+            mimeType: 'text/html', 
+            subject: "${currentBuild.currentResult} BUILD: #${BUILD_NUMBER} ${JOB_NAME}", 
+            to: 'davide.bonomo@eng.it'
+        }
+    }
+}

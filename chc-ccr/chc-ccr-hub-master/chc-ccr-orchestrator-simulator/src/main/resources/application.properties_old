@@ -1,0 +1,14 @@
+server.port=60005
+
+spring.profiles.active=orch
+
+# from Ochestrator to CCR
+ccr_exchange=chc_cmd_orc2_exchange
+ccr_routing_key=chc_cmd_orc2ccr
+
+# used Only by the Orchestrator Simulator
+orchestrator_queue=chc_cmd_ccr2orc_queue
+spring.rabbitmq.username=chcadmin
+spring.rabbitmq.password=chcint
+
+
