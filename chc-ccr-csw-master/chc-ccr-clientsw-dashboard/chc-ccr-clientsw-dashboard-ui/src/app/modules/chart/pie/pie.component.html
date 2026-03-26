@@ -1,0 +1,25 @@
+<mat-grid-list cols="1" rowHeight="150px">
+    <mat-grid-tile [rowspan]="3">
+        <mat-card class="dashboard-card">
+            <mat-card-header>
+                <mat-card-title>{{label}}</mat-card-title>
+            </mat-card-header>
+            <mat-card-content class="dashboard-card-content">
+                <div #ContainerRef style="width: 100%; height: 90%;">
+                    <ngx-charts-pie-chart transform="translate(0, 0)"
+                       
+                        [results]="data"
+                        [gradient]="gradient"
+                        [legend]="showLegend"
+                        [labels]="showLabels"
+                        [legendPosition]="legendPosition"
+                        [doughnut]="isDoughnut"
+                        [customColors]="colorScheme"
+                    
+                        >
+                        </ngx-charts-pie-chart>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </mat-grid-tile>
+</mat-grid-list>

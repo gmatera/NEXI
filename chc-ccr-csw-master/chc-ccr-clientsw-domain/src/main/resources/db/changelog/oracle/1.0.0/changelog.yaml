@@ -1,0 +1,43 @@
+databaseChangeLog:
+  - property:
+      dbms: oracle
+      name: DB_USER
+      value: CSW
+      
+  - changeSet:
+      id: oracle_domain_compatibility
+      author: Eng
+      dbms: oracle
+      changes:
+      - sqlFile:
+          encoding: utf8
+          endDelimiter: \n/\s*\n|\n/\s*$
+          path: 00_csw_domain_oracle.sql
+          relativeToChangelogFile: true
+          splitStatements: true
+          stripComments: true
+  - changeSet:
+      id: oracle_domain
+      author: Eng
+      dbms: oracle
+      changes:
+      - sqlFile:
+          encoding: utf8
+          endDelimiter: \n/\s*\n|\n/\s*$
+          path: 01_csw_domain_oracle.sql
+          relativeToChangelogFile: true
+          splitStatements: true
+          stripComments: true
+  - changeSet:
+      id: 02_csw_init_oracle.sql
+      author: Eng
+      dbms: oracle
+      changes:
+      - sqlFile:
+          encoding: utf8
+          endDelimiter: \n/\s*\n|\n/\s*$
+          path: 02_csw_init_oracle.sql
+          relativeToChangelogFile: true
+          splitStatements: true
+          stripComments: true
+

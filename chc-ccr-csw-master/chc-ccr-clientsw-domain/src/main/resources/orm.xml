@@ -1,0 +1,200 @@
+
+<entity-mappings
+	xmlns="http://xmlns.jcp.org/xml/ns/persistence/orm"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence/orm
+      http://xmlns.jcp.org/xml/ns/persistence/orm_2_1.xsd"
+	version="2.1">
+	<entity
+		class="com.cbi.ccr.csw.domain.csw.config.db.ConfigurationFMSDB"
+		access="FIELD">
+		<attributes>
+			<id name="id">
+				<generated-value strategy="IDENTITY" />
+			</id>
+		</attributes>
+	</entity>
+	<entity
+		class="com.cbi.ccr.csw.domain.csw.config.db.ConfigurationFTSDB"
+		access="FIELD">
+		<attributes>
+			<id name="id">
+				<generated-value strategy="IDENTITY" />
+			</id>
+		</attributes>
+	</entity>
+	<entity
+		class="com.cbi.ccr.csw.domain.csw.config.db.ConfigurationMSSDB"
+		access="FIELD">
+		<attributes>
+			<id name="id">
+				<generated-value strategy="IDENTITY" />
+			</id>
+		</attributes>
+	</entity>
+
+	<entity
+		class="com.cbi.ccr.csw.domain.csw.config.femws.ConfigurationFemsWs"
+		access="FIELD">
+		<attributes>
+			<id name="id">
+				<generated-value strategy="IDENTITY" />
+			</id>
+		</attributes>
+	</entity>
+	<entity
+		class="com.cbi.ccr.csw.mq.domain.config.ConfigurationFMSMQ"
+		access="FIELD">
+		<attributes>
+			<id name="id">
+				<generated-value strategy="IDENTITY" />
+			</id>
+		</attributes>
+	</entity>
+	<entity
+		class="com.cbi.ccr.csw.mq.domain.config.ConfigurationFTSMQ"
+		access="FIELD">
+		<attributes>
+			<id name="id">
+				<generated-value strategy="IDENTITY" />
+			</id>
+		</attributes>
+	</entity>
+	<entity
+		class="com.cbi.ccr.csw.mq.domain.config.ConfigurationMSSMQ"
+		access="FIELD">
+		<attributes>
+			<id name="id">
+				<generated-value strategy="IDENTITY" />
+			</id>
+		</attributes>
+	</entity>
+	<entity
+		class="com.cbi.ccr.csw.mq.domain.config.ConfigurationMqPrimitive"
+		access="FIELD">
+		<attributes>
+			<id name="id">
+				<generated-value strategy="IDENTITY" />
+			</id>
+		</attributes>
+	</entity>
+	<entity
+		class="com.cbi.ccr.csw.domain.csw.config.restful.ConfigurationRestfulWs"
+		access="FIELD">
+		<attributes>
+			<id name="id">
+				<generated-value strategy="IDENTITY" />
+			</id>
+		</attributes>
+	</entity>
+	<entity
+		class="com.cbi.ccr.csw.domain.csw.config.AddOnFTSConfiguration"
+		access="FIELD">
+		<attributes>
+			<id name="id">
+				<generated-value strategy="IDENTITY" />
+			</id>
+		</attributes>
+	</entity>
+	<entity
+		class="com.cbi.ccr.csw.domain.csw.config.GlobalProperties"
+		access="FIELD">
+		<attributes>
+			<id name="id">
+				<generated-value strategy="IDENTITY" />
+			</id>
+		</attributes>
+	</entity>
+
+	<entity class="com.cbi.ccr.csw.domain.fms.FMSSend"
+		access="FIELD">
+		<attributes>
+			<id name="id">
+				<generated-value strategy="IDENTITY"/>
+			</id>
+			<id name="id">
+				<column name="id_sync_send" nullable="false"/> 
+			</id>
+		</attributes>
+	</entity>
+	<entity class="com.cbi.ccr.csw.domain.fts.FTSSend"
+		access="FIELD">
+		<attributes>
+			<id name="id">
+				<generated-value strategy="IDENTITY" />
+			</id>
+			<id name="id">
+				<column name="ID_SEND_FILE" nullable="false"/> 
+			</id>
+		</attributes>
+	</entity>
+	<entity class="com.cbi.ccr.csw.domain.mss.MSSSend"
+		access="FIELD">
+		<attributes>
+			<id name="id">
+				<generated-value strategy="IDENTITY" />
+			</id>
+			<id name="id">
+				<column name="FAS_SEQID" nullable="false"/> 
+			</id>
+		</attributes>
+	</entity>
+
+	<entity class="com.cbi.ccr.csw.mq.domain.fms.FMSSendMQ"
+		access="FIELD">
+		<attributes>
+			<id name="id">
+				<generated-value strategy="IDENTITY" />
+			</id>
+			<id name="id">
+				<column name="ID_SYNC_SEND" nullable="false"/> 
+			</id>
+		</attributes>
+	</entity>
+	<entity class="com.cbi.ccr.csw.mq.domain.fts.FTSSendMQ"
+		access="FIELD">
+		<attributes>
+			<id name="id">
+				<generated-value strategy="IDENTITY" />
+			</id>
+			<id name="id">
+				<column name="ID_SEND_FILE" nullable="false"/> 
+			</id>
+		</attributes>
+	</entity>
+	<entity class="com.cbi.ccr.csw.mq.domain.mss.MSSSendMQ"
+		access="FIELD">
+		<attributes>
+			<id name="id">
+				<generated-value strategy="IDENTITY" />
+			</id>
+			<id name="id">
+				<column name="FAS_SEQID" nullable="false"/> 
+			</id>
+		</attributes>
+	</entity>
+		<entity class="com.cbi.ccr.csw.domain.user.Users"
+		access="FIELD">
+		<attributes>
+			<id name="id">
+				<generated-value strategy="IDENTITY" />
+			</id>
+		</attributes>
+	</entity>
+	<entity class="com.cbi.ccr.csw.domain.ConfigRouteInterface"
+		access="FIELD">
+		<attributes>
+			<id name="id">
+				<generated-value strategy="IDENTITY" />
+			</id>
+		</attributes>
+	</entity>
+	<entity class="com.cbi.ccr.csw.domain.csw.mq.pool.PrimitivePool"
+		access="FIELD">
+		<attributes>
+			<id name="id">
+				<generated-value strategy="IDENTITY" />
+			</id>
+		</attributes>
+	</entity>
+</entity-mappings>

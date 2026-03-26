@@ -1,0 +1,87 @@
+
+
+<div class="grid-container">
+    <h1 class="mat-h1">Global Properties configuration</h1>
+
+    <div fxLayout="row" fxLayoutAlign="center center" class="content">
+        <mat-card>
+            <br>
+            <br>
+            <mat-grid-tile [colspan]="1" [rowspan]="1">
+                <div style="text-align:right;width:100%">
+                    <button mat-raised-button class="success form-button" style="font-weight:bold" (click)="goBackToList()">Back</button>
+                </div>
+            </mat-grid-tile>
+            <br>
+            <form [formGroup] = "configurationForm" (ngSubmit)="onSubmit(configurationForm)">
+                <h2> Global Properties configuration</h2>
+                <mat-grid-list cols="3" rowHeight="100px">
+                    <mat-grid-tile [colspan]="1" [rowspan]="1">
+                        <mat-form-field appearance="outline" color="accent">
+                            <mat-label>Property Name</mat-label>
+                            <input matInput placeholder="insert propertyName" formControlName="propertyName" >
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile [colspan]="1" [rowspan]="1">
+                        <mat-form-field appearance="outline" color="accent">
+                            <mat-label>Value</mat-label>
+                            <input matInput placeholder="insert value" formControlName="value" >
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile [colspan]="1" [rowspan]="1">
+                        <mat-form-field appearance="outline" color="accent">
+                            <mat-label>Type</mat-label>
+                            <input matInput placeholder="insert type" formControlName="type" >
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile [colspan]="1" [rowspan]="1">
+                        <mat-form-field appearance="outline" color="accent">
+                            <mat-label>Mandatory</mat-label>
+                            <mat-select formControlName="mandatory" [value]="globalPropertiesDTO.mandatory">
+                                <mat-option *ngFor=" let enabled of getBooleanArray()" [value]="enabled.code">{{enabled.code}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile [colspan]="1" [rowspan]="1">
+                        <mat-form-field appearance="outline" color="accent">
+                            <mat-label>Required Msg</mat-label>
+                            <input matInput placeholder="insert requiredMsg" formControlName="requiredMsg" >
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile [colspan]="1" [rowspan]="1">
+                        <mat-form-field appearance="outline" color="accent">
+                            <mat-label>Min Lenght</mat-label>
+                            <input matInput placeholder="insert minLength" formControlName="minLength" >
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile [colspan]="1" [rowspan]="1">
+                        <mat-form-field appearance="outline" color="accent">
+                            <mat-label>Max Lenght</mat-label>
+                            <input matInput placeholder="insert maxLength" formControlName="maxLength" >
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile [colspan]="1" [rowspan]="1">
+                        <mat-form-field appearance="outline" color="accent">
+                            <mat-label>Display Name</mat-label>
+                            <input matInput placeholder="insert displayName" formControlName="displayName" >
+                        </mat-form-field>
+                    </mat-grid-tile>
+                </mat-grid-list>
+                <mat-divider inset></mat-divider>
+                <br>
+            <mat-grid-list cols="2" rowHeight="50px">
+                <mat-grid-tile [colspan]="1" [rowspan]="1">
+                    <div style="text-align:left;width:100%" *ngIf="globalPropertiesDTO.id != null">
+                        <button mat-raised-button type="button" class="danger form-button" style="font-weight:bold" (click)="openConfirmDialog()">Delete</button>
+                    </div>
+                </mat-grid-tile>
+                <mat-grid-tile [colspan]="1" [rowspan]="1">
+                    <div style="text-align:right;width:100%">
+                        <button mat-raised-button type="submit" class="primary form-button" style="font-weight:bold"  [disabled]="!configurationForm.valid">Save</button>
+                    </div>
+                </mat-grid-tile>
+            </mat-grid-list>       
+            </form>
+        </mat-card>
+    </div>
+</div>

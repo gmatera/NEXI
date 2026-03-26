@@ -1,0 +1,43 @@
+<div class="grid-container">
+    <h1 class="mat-h1">System configuration</h1>
+
+    <div fxLayout="row" fxLayoutAlign="center center" class="content">
+        <mat-card>
+            <form [formGroup] = "configurationForm" (ngSubmit)="onSubmit(configurationForm)">
+                <h2> System configuration</h2>
+                <mat-grid-list cols="3" rowHeight="100px">
+                    <mat-grid-tile [colspan]="1" [rowspan]="1">
+                        <mat-form-field appearance="outline" color="accent">
+                            <mat-label>Module</mat-label>
+                            <mat-select formControlName="module">
+                                <mat-option *ngFor=" let module of modules" [value]="module">{{module}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile [colspan]="1" [rowspan]="1">
+                        <mat-form-field appearance="outline" color="accent">
+                            <mat-label>param Key</mat-label>
+                            <input matInput placeholder="insert paramKey" formControlName="paramKey" >
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile [colspan]="1" [rowspan]="1">
+                        <mat-form-field appearance="outline" color="accent">
+                            <mat-label>param Value</mat-label>
+                            <input matInput placeholder="insert paramValue" formControlName="paramValue" >
+                        </mat-form-field>
+                    </mat-grid-tile>
+                </mat-grid-list>
+    
+                <mat-divider inset></mat-divider>
+                <br>
+            <mat-grid-list cols="2" rowHeight="50px"> 
+               <mat-grid-tile [colspan]="1" [rowspan]="1">
+                    <div style="text-align:right;width:100%">
+                        <button mat-raised-button type="submit" class="primary form-button" style="font-weight:bold"  [disabled]="!configurationForm.valid">Save</button>
+                    </div>
+                </mat-grid-tile>
+            </mat-grid-list>       
+            </form>
+        </mat-card>
+    </div>
+</div>

@@ -1,0 +1,52 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.cbi.chc.csw</groupId>
+		<artifactId>chc-ccr-clientsw-femws</artifactId>
+		<version>1.10.0</version>
+	</parent>
+	<artifactId>chc-ccr-clientsw-femws-inbound</artifactId>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.cbi.chc.framework</groupId>
+			<artifactId>chc-framework-common</artifactId>
+			<version>${chc-framework-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.cbi.chc.framework</groupId>
+			<artifactId>chc-framework-common-api</artifactId>
+			<version>${chc-framework-version}</version>
+		</dependency>
+		
+		<!-- CCR -->
+		<dependency>
+			<groupId>com.cbi.chc.ccr</groupId>
+			<artifactId>chc-ccr-clientsw-dto</artifactId>
+			<version>${chc-ccr-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.cbi.chc.ccr</groupId>
+			<artifactId>chc-ccr-clientsw-femws-dto</artifactId>
+			<version>${chc-ccr-version}</version>
+		</dependency>
+		
+		
+		
+		<dependency>
+			<groupId>com.cbi.chc.csw</groupId>
+			<artifactId>chc-ccr-clientsw-domain</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.cbi.chc.csw</groupId>
+			<artifactId>chc-ccr-clientsw-service</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.cbi.chc.csw</groupId>
+			<artifactId>chc-ccr-clientsw-femws-service</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+	</dependencies>
+</project>

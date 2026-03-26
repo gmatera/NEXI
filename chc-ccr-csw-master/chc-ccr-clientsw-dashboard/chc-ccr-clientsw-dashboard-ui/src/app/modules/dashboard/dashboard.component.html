@@ -1,0 +1,80 @@
+<div class="grid-container dashboard-charts">
+    <!--dash.component.html-->
+    <div>
+        <h1 class="mat-h1">Dashboard</h1>
+        <!-- <service-registry-component></service-registry-component> -->
+            <mat-button-toggle-group name="favoriteColor" aria-label="Favorite Color">
+                <mat-button-toggle value="DB" (click)="selectedView = 'DB'">DB</mat-button-toggle>
+                <mat-button-toggle value="MQ" (click)="selectedView = 'MQ'">MQ</mat-button-toggle>
+            </mat-button-toggle-group>
+        <div [hidden]="selectedView=='MQ'">
+            <div>
+                <div style="width: 50%; float: left;">
+                    <chart-box-component [data]="monthlyDBMessageOutboud" [label]="monthlyDBMessageOutboudLabel">
+                    </chart-box-component>
+                </div>
+                <div style="width: 50%; float: left;">
+                    <chart-box-component [data]="monthlyDBMessageInboud" [label]="monthlyDBMessageInboudLabel">
+                    </chart-box-component>
+                </div>
+            </div>
+            <div>
+                <div style="width: 33%; float: left;">
+                    <pie-component [data]="countDBFMSOutboud" [label]="countDBFMSOutboudLabel" [colorScheme]="colorSchemeOutbounbdFMS"></pie-component>
+                </div>
+                <div style="width: 33%; float: left;">
+                    <pie-component [data]="countDBFTSOutboud" [label]="countDBFTSOutboudLabel" [colorScheme]="colorSchemeOutbounbdFTS"></pie-component>
+                </div>
+                <div style="width: 33%; float: left;">
+                    <pie-component [data]="countDBMSSOutboud" [label]="countDBMSSOutboudLabel" [colorScheme]="colorSchemeOutbounbdMSS"></pie-component>
+                </div>
+            </div>
+            <div>
+                <div style="width: 33%; float: left;">
+                    <pie-component [data]="countDBFMSInboud" [label]="countDBFMSInboudLabel" [colorScheme]="colorSchemeInbounbdFMS"></pie-component>
+                </div>
+                <div style="width: 33%; float: left;">
+                    <pie-component [data]="countDBFTSInboud" [label]="countDBFTSInboudLabel" [colorScheme]="colorSchemeInbounbdFTS"></pie-component>
+                </div>
+                <div style="width: 33%; float: left;">
+                    <pie-component [data]="countDBMSSInboud" [label]="countDBMSSInboudLabel" [colorScheme]="colorSchemeInbounbdMSS"></pie-component>
+                </div>
+            </div>
+        </div>
+        <div [hidden]="selectedView=='DB'">
+            <div>
+                <div style="width: 50%; float: left;">
+                    <chart-box-component [data]="monthlyMQMessageOutboud" [label]="monthlyMQMessageOutboudLabel">
+                    </chart-box-component>
+                </div>
+                <div style="width: 50%; float: left;">
+                    <chart-box-component [data]="monthlyMQMessageInboud" [label]="monthlyMQMessageInboudLabel">
+                    </chart-box-component>
+                </div>
+            </div>
+            <div>
+                <div style="width: 33%; float: left;">
+                    <pie-component [data]="countMQFMSOutboud" [label]="countMQFMSOutboudLabel" [colorScheme]="colorSchemeMQOutbound"></pie-component>
+                </div>
+                <div style="width: 33%; float: left;">
+                    <pie-component [data]="countMQFTSOutboud" [label]="countMQFTSOutboudLabel" [colorScheme]="colorSchemeMQOutbound"></pie-component>
+                </div>
+                <div style="width: 33%; float: left;">
+                    <pie-component [data]="countMQMSSOutboud" [label]="countMQMSSOutboudLabel" [colorScheme]="colorSchemeMQOutbound"></pie-component>
+                </div>
+            </div>
+            <div>
+                <div style="width: 33%; float: left;">
+                    <pie-component [data]="countMQFMSInboud" [label]="countMQFMSInboudLabel" [colorScheme]="colorSchemeMQInbound"></pie-component>
+                </div>
+                <div style="width: 33%; float: left;">
+                    <pie-component [data]="countMQFTSInboud" [label]="countMQFTSInboudLabel" [colorScheme]="colorSchemeMQInbound"></pie-component>
+                </div>
+                <div style="width: 33%; float: left;">
+                    <pie-component [data]="countMQMSSInboud" [label]="countMQMSSInboudLabel" [colorScheme]="colorSchemeMQInbound"></pie-component>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br>

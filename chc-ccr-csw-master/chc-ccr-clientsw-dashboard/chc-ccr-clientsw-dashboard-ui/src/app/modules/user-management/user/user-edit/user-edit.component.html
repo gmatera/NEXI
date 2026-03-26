@@ -1,0 +1,104 @@
+
+
+<div class="grid-container">
+    <h1 class="mat-h1">User Management</h1>
+
+    <div fxLayout="row" fxLayoutAlign="center center" class="content">
+        <mat-card>
+            <br>
+            <br>
+            <mat-grid-tile [colspan]="1" [rowspan]="1">
+                <div style="text-align:right;width:100%">
+                    <button mat-raised-button class="success form-button" style="font-weight:bold" (click)="goBackToList()">Back</button>
+                </div>
+            </mat-grid-tile>
+            <br>
+            <form [formGroup]="userForm" (ngSubmit)="onSubmit(userForm)">
+                <h2> User details</h2>
+                <mat-grid-list cols="3" rowHeight="100px">
+                    <mat-grid-tile [colspan]="1" [rowspan]="1">
+                        <mat-form-field appearance="outline" color="accent">
+                            <mat-label>Username</mat-label>
+                            <input matInput placeholder="insert username" formControlName="username" >
+                            </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile [colspan]="1" [rowspan]="1">
+                        <mat-form-field appearance="outline" color="accent">
+                            <mat-label>fullName</mat-label>
+                            <input matInput placeholder="insert fullName" formControlName="fullName" >
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile [colspan]="1" [rowspan]="1">
+                        <mat-form-field appearance="outline" color="accent">
+                            <mat-label>password</mat-label>
+                            <input  type="password" matInput placeholder="insert password" formControlName="password">
+                            <mat-error *ngIf="userForm.controls['password'].hasError('required') "> password is required </mat-error>
+                            <mat-error *ngIf="userForm.controls['password'].hasError('minlength') "> min length should be 8 </mat-error>
+                            <mat-error *ngIf="userForm.controls['password'].hasError('maxlength') "> max length should be 64 </mat-error>
+                            <mat-error *ngIf="userForm.controls['password'].hasError('pattern') "> atleast 1 number, sp. char, 1 uppercase letter and 1 lowercase letter </mat-error>
+
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile [colspan]="1" [rowspan]="1">
+                        <mat-form-field appearance="outline" color="accent">
+                            <mat-label>Roles</mat-label>
+                            <mat-select formControlName="roles" multiple>
+                              <mat-select-trigger>
+                                {{userForm.get('roles')?.value?.[0] || ''}}
+                                <span *ngIf="(userForm.get('roles')?.value?.length || 0) > 1" class="example-additional-selection">
+                                  (+{{(userForm.get('roles')?.value?.length || 0) - 1}} {{userForm.get('roles')?.value?.length === 2 ? 'other' : 'others'}})
+                                </span>
+                              </mat-select-trigger>
+                              <mat-option *ngFor="let role of rolesList" [value]="role">{{role}}</mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                        </mat-grid-tile>
+                </mat-grid-list>
+                <mat-divider inset></mat-divider>
+                <br>
+                <h2> Secret details</h2>
+                <mat-grid-list cols="2" rowHeight="100px">
+                    <mat-grid-tile [colspan]="1" [rowspan]="1">
+                        <mat-form-field appearance="outline" color="accent">
+                            <mat-label>Secret Answer 1</mat-label>
+                            <input matInput placeholder="insert secret Answer 1" formControlName="secretAnswerOne" >
+                            </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile [colspan]="1" [rowspan]="1">
+                        <mat-form-field appearance="outline" color="accent">
+                            <mat-label>Secret Response 1</mat-label>
+                            <input matInput placeholder="insert secret Response 1" formControlName="secretResponseOne" >
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile [colspan]="1" [rowspan]="1">
+                        <mat-form-field appearance="outline" color="accent">
+                            <mat-label>Secret Answer 2</mat-label>
+                            <input matInput placeholder="insert secret Answer 2" formControlName="secretAnswerTwo" >
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile [colspan]="1" [rowspan]="1">
+                        <mat-form-field appearance="outline" color="accent">
+                            <mat-label>Secret Response 2</mat-label>
+                            <input matInput placeholder="insert secret Response 2" formControlName="secretResponseTwo" >
+                        </mat-form-field>
+                    </mat-grid-tile>
+                </mat-grid-list>
+                <mat-divider inset></mat-divider>
+                <br>
+
+            <mat-grid-list cols="2" rowHeight="50px">
+                <mat-grid-tile [colspan]="1" [rowspan]="1">
+                    <div style="text-align:left;width:100%" *ngIf="userDTO.id != null">
+                        <button mat-raised-button type="button" class="danger form-button" style="font-weight:bold" (click)="openConfirmDialog()">Delete</button>
+                    </div>
+                </mat-grid-tile>
+                <mat-grid-tile [colspan]="1" [rowspan]="1">
+                    <div style="text-align:right;width:100%">
+                        <button mat-raised-button type="submit" class="primary form-button" style="font-weight:bold"  [disabled]="!userForm.valid">Save</button>
+                    </div>
+                </mat-grid-tile>
+            </mat-grid-list>       
+            </form>
+        </mat-card>
+    </div>
+</div>

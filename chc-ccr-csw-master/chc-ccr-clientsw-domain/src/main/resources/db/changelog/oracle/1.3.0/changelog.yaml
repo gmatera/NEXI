@@ -1,0 +1,30 @@
+databaseChangeLog:
+  - property:
+      dbms: oracle
+      name: DB_USER
+      value: CSW
+      
+  - changeSet:
+      id: 01_primitive_pool.sql
+      author: Eng
+      dbms: oracle
+      changes:
+      - sqlFile:
+          encoding: utf8
+          endDelimiter: \n/\s*\n|\n/\s*$
+          path: 01_primitive_pool.sql
+          relativeToChangelogFile: true
+          splitStatements: true
+          stipComments: true
+  - changeSet:
+      id: 02_alter_sequence_users.sql
+      author: Eng
+      dbms: oracle
+      changes:
+      - sqlFile:
+          encoding: utf8
+          endDelimiter: \n/\s*\n|\n/\s*$
+          path: 02_alter_sequence_users.sql
+          relativeToChangelogFile: true
+          splitStatements: true
+          stipComments: true

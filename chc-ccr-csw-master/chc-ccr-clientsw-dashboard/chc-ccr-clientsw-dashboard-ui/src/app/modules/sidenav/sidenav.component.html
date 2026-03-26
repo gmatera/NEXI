@@ -1,0 +1,230 @@
+<mat-sidenav-container *ngIf="auth.isAuthenticated">
+
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      <div>
+        <button class="menu-button" type="button" mat-button (click)="drawer.toggle()">
+          <mat-icon class="icon">menu</mat-icon>
+        </button>
+        <a routerLink="/">LMI - Local Management Interface Client-Software </a>
+        
+      </div>
+      <div fxFlex fxLayout fxLayoutAlign="flex-end" fxHide.xs>
+        <ul fxLayout fxLayoutGap="20px" class="navigation-items">
+
+          <button mat-button [matMenuTriggerFor]="menu">{{username}}   <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item routerLink="/changepassword">Change Password</button>
+            <button mat-menu-item (click)="auth.logout()">Logout</button>
+          </mat-menu>
+        </ul>
+      </div>
+    </mat-toolbar>
+
+    <mat-drawer-container class="container" autosize>
+      <mat-drawer #drawer class="sidenav" mode="side" opened>
+        <mat-list>
+          <a routerLink="/home">
+            <mat-list-item>
+              <mat-icon mat-list-icon>home</mat-icon>
+              <div mat-line>Home</div>
+            </mat-list-item>
+          </a>
+          <mat-divider></mat-divider>
+
+            <a routerLink="user" *ngIf="auth.isAdmin">
+              <mat-list-item>
+                <mat-icon mat-list-icon>perm_identity</mat-icon>
+                <div mat-line>User</div>
+              </mat-list-item>
+            </a>
+            <mat-divider></mat-divider>
+
+
+         <mat-accordion>
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  <mat-icon mat-list-icon>outbound</mat-icon>
+                  <div mat-line>Outbound</div>
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <mat-divider></mat-divider>
+              <a routerLink="/outbound/fms">
+                <mat-list-item>
+                  <mat-icon mat-list-icon>lens</mat-icon>
+                  <div mat-line>FMS</div>
+                </mat-list-item>
+              </a>
+              <mat-divider></mat-divider>
+              <a routerLink="/outbound/fts">
+                <mat-list-item>
+                  <mat-icon mat-list-icon>lens</mat-icon>
+                  <div mat-line>FTS</div>
+                </mat-list-item>
+              </a>
+              <mat-divider></mat-divider>
+              <a routerLink="/outbound/mss">
+                <mat-list-item>
+                  <mat-icon mat-list-icon>lens</mat-icon>
+                  <div mat-line>MSS</div>
+                </mat-list-item>
+              </a>
+
+              <mat-divider></mat-divider>
+              <a routerLink="/outbound/addon">
+                <mat-list-item>
+                  <mat-icon mat-list-icon>lens</mat-icon>
+                  <div mat-line>ADD-ON</div>
+                </mat-list-item>
+              </a>
+
+            </mat-expansion-panel>
+          </mat-accordion> 
+
+          <mat-divider></mat-divider>
+
+              <!-- --> 
+         <mat-accordion>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <mat-icon mat-list-icon>outbound</mat-icon>
+                <div mat-line>Inbound</div>
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <mat-divider></mat-divider>
+            <a routerLink="/inbound/fms">
+              <mat-list-item>
+                <mat-icon mat-list-icon>lens</mat-icon>
+                <div mat-line>FMS</div>
+              </mat-list-item>
+            </a>
+            <mat-divider></mat-divider>
+            <a routerLink="/inbound/fts">
+              <mat-list-item>
+                <mat-icon mat-list-icon>lens</mat-icon>
+                <div mat-line>FTS</div>
+              </mat-list-item>
+            </a>
+            <mat-divider></mat-divider>
+            <a routerLink="/inbound/mss">
+              <mat-list-item>
+                <mat-icon mat-list-icon>lens</mat-icon>
+                <div mat-line>MSS</div>
+              </mat-list-item>
+            </a>
+            <mat-divider></mat-divider>
+            <a routerLink="/inbound/addon">
+              <mat-list-item>
+                <mat-icon mat-list-icon>lens</mat-icon>
+                <div mat-line>ADD-ON</div>
+              </mat-list-item>
+            </a>
+
+          </mat-expansion-panel>
+        </mat-accordion> 
+
+        <mat-divider></mat-divider>
+
+          <mat-accordion>
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  <mat-icon mat-list-icon>settings</mat-icon>
+                  <div mat-line> Configurations</div>
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <mat-divider></mat-divider>
+              <a routerLink="/configuration/messages/fms">
+                <mat-list-item>
+                  <mat-icon mat-list-icon>lens</mat-icon>
+                  <div mat-line>FMS</div>
+                </mat-list-item>
+              </a>
+              <mat-divider></mat-divider>
+              <a routerLink="/configuration/messages/fts">
+                <mat-list-item>
+                  <mat-icon mat-list-icon>lens</mat-icon>
+                  <div mat-line>FTS</div>
+                </mat-list-item>
+              </a>
+
+              <mat-divider></mat-divider>
+              <a routerLink="/configuration/messages/mss">
+                <mat-list-item>
+                  <mat-icon mat-list-icon>lens</mat-icon>
+                  <div mat-line>MSS</div>
+                </mat-list-item>
+              </a>
+
+              <mat-divider></mat-divider>
+              <a routerLink="/configuration/messages/addon">
+                <mat-list-item>
+                  <mat-icon mat-list-icon>lens</mat-icon>
+                  <div mat-line>Addon</div>
+                </mat-list-item>
+              </a>
+
+              <mat-divider></mat-divider>
+              <a routerLink="/configuration/mq-primitive">
+                <mat-list-item>
+                  <mat-icon mat-list-icon>lens</mat-icon>
+                  <div mat-line>MQ Primitive</div>
+                </mat-list-item>
+              </a>
+
+              <mat-divider></mat-divider>
+              <a routerLink="/configuration/femws">
+                <mat-list-item>
+                  <mat-icon mat-list-icon>lens</mat-icon>
+                  <div mat-line>SOAP</div>
+                </mat-list-item>
+              </a>
+
+              <mat-divider></mat-divider>
+              <a routerLink="/configuration/global-properties">
+                <mat-list-item>
+                  <mat-icon mat-list-icon>lens</mat-icon>
+                  <div mat-line>Global Properties</div>
+                </mat-list-item>
+              </a>
+
+            <!--   <mat-divider></mat-divider>
+              <a routerLink="/configuration/service-registry">
+                <mat-list-item>
+                  <mat-icon mat-list-icon>lens</mat-icon>
+                  <div mat-line>Service Registry</div>
+                </mat-list-item>
+              </a> -->
+              <!-- <mat-divider></mat-divider>
+              <a routerLink="/configuration/route-interface">
+                <mat-list-item>
+                  <mat-icon mat-list-icon>lens</mat-icon>
+                  <div mat-line>Route Interface</div>
+                </mat-list-item>
+              </a> -->
+
+              <!-- <mat-divider></mat-divider>
+              <a routerLink="/configuration/system">
+                <mat-list-item>
+                  <mat-icon mat-list-icon>lens</mat-icon>
+                  <div mat-line>System</div>
+                </mat-list-item>
+              </a> -->
+
+            </mat-expansion-panel>
+          </mat-accordion>
+          <mat-divider></mat-divider>
+        </mat-list>
+      </mat-drawer>
+
+      <main>
+        <router-outlet></router-outlet>
+      </main>
+    </mat-drawer-container>
+
+
+  </mat-sidenav-content>
+</mat-sidenav-container>

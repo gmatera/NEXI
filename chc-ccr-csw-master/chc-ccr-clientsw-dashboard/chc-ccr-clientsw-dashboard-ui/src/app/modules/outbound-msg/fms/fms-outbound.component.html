@@ -1,0 +1,212 @@
+<div class="grid-container">
+  <h1 class="mat-h1">Messages</h1>
+
+  <div fxLayout="row" fxLayoutAlign="center center" class="content">
+    <mat-card class="main-card">
+      <mat-card-title fxLayout.gt-xs="row" fxLayout.xs="column">
+        <h2 class="mat-h2">Outbound FMS</h2>
+      </mat-card-title>
+      <mat-card-content>
+        <div class="table-container">
+
+          <!-- Config filter -->
+          <form [formGroup]="filterForm" (ngSubmit)="onSubmitFilter()">
+            <mat-grid-list cols="5" rowHeight="70px">
+              <mat-grid-tile [colspan]="1" [rowspan]="1">
+                <mat-form-field appearance="outline" color="accent">
+                  <mat-label>Interface Type </mat-label>
+                  <mat-select formControlName="interfaceType" [value]="filter.interfaceType" (selectionChange)="onInterfaceSelection($event.value,filterForm)">
+                    <mat-option *ngFor=" let interface of getInterfaceArray()" [value]="interface.code">
+                      {{interface.code}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </mat-grid-tile>
+              <mat-grid-tile [colspan]="1" [rowspan]="1">
+                <mat-form-field appearance="outline" color="accent">
+                  <mat-label>Local Ba </mat-label>
+                  <input matInput placeholder="insert localBaId" formControlName="localBaId">
+                </mat-form-field>
+              </mat-grid-tile>
+              <mat-grid-tile [colspan]="1" [rowspan]="1">
+                <mat-form-field appearance="outline" color="accent">
+                  <mat-label>Remote Ba</mat-label>
+                  <input matInput placeholder="insert remoteBaId" formControlName="remoteBaId">
+                </mat-form-field>
+              </mat-grid-tile>
+              <mat-grid-tile [colspan]="1" [rowspan]="1">
+                <mat-form-field appearance="outline" color="accent">
+                  <mat-label>VFN</mat-label>
+                  <input matInput placeholder="insert VFN" formControlName="vfn">
+                </mat-form-field>
+              </mat-grid-tile>
+              <mat-grid-tile [colspan]="1" [rowspan]="1">
+                <mat-form-field appearance="outline" color="accent">
+                  <mat-label>Status </mat-label>
+                  <mat-select formControlName="status" [value]="filter.status" (selectionChange)="onSelectionFilter()">
+                    <mat-option *ngFor=" let status of getFmsStatusBaArray()" [value]="status.code">
+                      {{status.code}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </mat-grid-tile>
+              <mat-grid-tile [colspan]="1" [rowspan]="1">
+                <mat-form-field appearance="outline" color="accent">
+                  <mat-label>Logical State </mat-label>
+                  <mat-select formControlName="logicalStateList" [value]="filter.logicalStateList" (selectionChange)="onSelectionFilter()">
+                    <mat-option *ngFor=" let logicalStateList of getLogicalStateArray()" [value]="logicalStateList.value">
+                      {{logicalStateList.code}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </mat-grid-tile>
+              <mat-grid-tile [colspan]="1" [rowspan]="1">
+                <mat-form-field appearance="outline" color="accent">
+                  <mat-label>File Name</mat-label>
+                  <input matInput placeholder="insert file name" formControlName="fileName">
+                </mat-form-field>
+              </mat-grid-tile>
+              <mat-grid-tile [colspan]="1" [rowspan]="1">
+
+                <mat-form-field appearance="outline" color="accent">
+                  <mat-label>File Size </mat-label>
+                  <mat-select formControlName="fileSizeList" [value]="filter.fileSizeList" (selectionChange)="onSelectionFilter()">
+                    <mat-option *ngFor=" let fileSizeList of getFileSizeArray()" [value]="fileSizeList.value">
+                      {{fileSizeList.code}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+
+                <!-- <mat-form-field appearance="outline" color="accent">
+                  <mat-label>File Size</mat-label>
+                  <input matInput placeholder="insert file size" formControlName="fileSize">
+                </mat-form-field> -->
+
+
+              </mat-grid-tile>
+          
+            <mat-grid-tile [colspan]="1" [rowspan]="1">
+                <mat-form-field appearance="outline" color="accent">
+                  <mat-label>UDR</mat-label>
+                  <input matInput placeholder="insert UDR" formControlName="udr">
+                </mat-form-field>
+              </mat-grid-tile>
+              <mat-grid-tile [colspan]="1" [rowspan]="1">
+                <mat-form-field appearance="outline" color="accent">
+                  <mat-label>TUR</mat-label>
+                  <input matInput placeholder="insert TUR" formControlName="tur">
+                </mat-form-field>
+              </mat-grid-tile>
+          
+              <mat-grid-tile [colspan]="1" [rowspan]="1">
+                <mat-form-field appearance="outline" color="accent">
+                    <mat-label>Select a Date</mat-label>
+                    <mat-date-range-input [rangePicker]="picker">
+                        <input matStartDate placeholder="Start date" formControlName="startDate" />
+                        <input matEndDate placeholder="End date" formControlName="endDate" />
+                    </mat-date-range-input>
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-date-range-picker #picker></mat-date-range-picker>
+                </mat-form-field>
+            </mat-grid-tile>
+
+
+
+
+            <mat-grid-tile [colspan]="1" [rowspan]="1">
+              <mat-form-field appearance="outline" color="accent">
+                  <mat-label>From time</mat-label>
+                  <input matInput type="time" placeholder="FromTime" placeholder="FromTime" formControlName="fromTime" step="1" />
+                  <mat-date-range-picker #picker></mat-date-range-picker>
+              </mat-form-field>
+            </mat-grid-tile>
+
+            <mat-grid-tile [colspan]="1" [rowspan]="1">
+              <mat-form-field appearance="outline" color="accent">
+                  <mat-label>To time</mat-label>
+                  <input matInput type="time" placeholder="To time" placeholder="ToTime" formControlName="toTime"  step=1/>
+                  <mat-date-range-picker #picker></mat-date-range-picker>
+              </mat-form-field>
+            </mat-grid-tile>
+
+            </mat-grid-list>
+
+            <!-- interfaceType DB or MQ-->
+            <!-- <mat-grid-list *ngIf="filter && filter.interfaceType === 'MQ'" cols="6" rowHeight="70px">
+
+            </mat-grid-list> -->
+
+            <mat-grid-list cols="6" rowHeight="70px">
+              <mat-grid-tile [colspan]="6" [rowspan]="1">
+                <div>
+                  <button mat-raised-button>
+                    <mat-icon>filter_list</mat-icon>
+                  </button>
+                  &nbsp;
+                  <button mat-button color="accent" type="button" (click)="clearFilter()">
+                    <mat-icon>clear</mat-icon>
+                  </button>
+                  <button mat-raised-button *ngIf="filter && filter.interfaceType === 'DB'" type="button" (click)="retryInvalidBa()">
+                    <mat-icon >repeat</mat-icon>
+                  </button>
+                </div>
+              </mat-grid-tile>
+            </mat-grid-list>
+          </form>
+
+          <mat-table mat-table [dataSource]="service.dataSource" class="mat-elevation-z8"  matSort #sort="matSort" (matSortChange)="sortData(sort)">
+       
+            <ng-container matColumnDef="baInsertTimestamp">
+              <mat-header-cell *matHeaderCellDef> baInsertTimestamp </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.baInsertTimestamp}}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="cswInsertTimestamp">
+              <mat-header-cell *matHeaderCellDef> cswInsertTimestamp </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.cswInsertTimestamp}}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="localBaId">
+              <mat-header-cell *matHeaderCellDef mat-sort-header> localBaId </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.localBaId}} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="remoteBaId">
+              <mat-header-cell *matHeaderCellDef mat-sort-header> remoteBaId </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.remoteBaId}} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="vfn">
+              <mat-header-cell *matHeaderCellDef> vfn </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.vfn}} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="udr">
+              <mat-header-cell *matHeaderCellDef> udr </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.udr}} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="status">
+              <mat-header-cell *matHeaderCellDef> status </mat-header-cell>
+              <mat-cell *matCellDef="let element"> 
+                <ng-container>
+                  {{element.status}}
+                </ng-container>
+                </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="statusInfo">
+              <mat-header-cell *matHeaderCellDef> statusInfo </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.statusInfo}} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="complete">
+              <mat-header-cell *matHeaderCellDef> complete </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.complete}} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="fname">
+              <mat-header-cell *matHeaderCellDef> fname </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.fileName}} </mat-cell>
+            </ng-container>
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+          </mat-table>
+
+          <mat-paginator [pageSizeOptions]="service.pageSizeOptions" [length]="service.length"
+            [pageSize]="service.pageSize" showFirstLastButtons aria-label="Select page of periodic elements"
+            (page)="handlePageEvent($event)">
+          </mat-paginator>
+
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

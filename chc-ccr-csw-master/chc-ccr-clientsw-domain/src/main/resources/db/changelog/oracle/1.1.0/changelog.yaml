@@ -1,0 +1,6 @@
+databaseChangeLog:
+  - property:
+      dbms: oracle
+      name: DB_USER
+      value: CSW
+

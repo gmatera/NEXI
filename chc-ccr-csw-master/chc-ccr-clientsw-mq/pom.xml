@@ -1,0 +1,16 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.cbi.chc.csw</groupId>
+    <artifactId>chc-ccr-clientsw</artifactId>
+   <version>1.10.0</version>
+  </parent>
+  <artifactId>chc-ccr-clientsw-mq</artifactId>
+  <packaging>pom</packaging>
+  <modules>
+  	<module>chc-ccr-clientsw-mq-domain</module>
+  	<module>chc-ccr-clientsw-mq-common</module>
+  	<module>chc-ccr-clientsw-mq-inbound</module>
+  	<module>chc-ccr-clientsw-mq-outbound</module>
+  </modules>
+</project>

@@ -1,0 +1,54 @@
+databaseChangeLog:
+  - property:
+      dbms: mssql
+      name: DB_USER
+      value: CSW
+
+  - changeSet:
+      id: mssql_domain_compatibility
+      author: Eng
+      dbms: mssql
+      changes:
+      - sqlFile:
+          encoding: utf8
+          endDelimiter: \n/\s*\n|\n/\s*$
+          path: 00_csw_domain_mssql.sql
+          relativeToChangelogFile: true
+          splitStatements: true
+          stripComments: true
+  - changeSet:
+      id: 01_mssql_domain_csw
+      author: Eng
+      dbms: mssql
+      changes:
+      - sqlFile:
+          encoding: utf8
+          endDelimiter: \n/\s*\n|\n/\s*$
+          path: 01_csw_domain_mssql.sql
+          relativeToChangelogFile: true
+          splitStatements: true
+          stripComments: true
+  - changeSet:
+      id: 02_csw_init_mssql.sql
+      author: Eng
+      dbms: mssql
+      changes:
+      - sqlFile:
+          encoding: utf8
+          endDelimiter: \n/\s*\n|\n/\s*$
+          path: 02_csw_init_mssql.sql
+          relativeToChangelogFile: true
+          splitStatements: true
+          stripComments: true
+  - changeSet:
+      id: 03_trigger.sql
+      author: Eng
+      dbms: mssql
+      changes:
+      - sqlFile:
+          encoding: utf8
+          endDelimiter: \n/\s*\n|\n/\s*$
+          path: 03_trigger.sql
+          relativeToChangelogFile: true
+          splitStatements: true
+          stripComments: true

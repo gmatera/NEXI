@@ -1,0 +1,30 @@
+
+<mat-card class="mat-card-area">
+  <h1 class="h1-title" style="padding-top: 100px;">Client Software LMI  </h1>
+    
+    <mat-card-title>Login</mat-card-title>
+      <mat-card-content>
+        <div class="form">
+          <form [formGroup] = "loginForm" (ngSubmit)="onSubmit(loginForm)">
+          <p>
+            <mat-form-field>
+              <input type="text" matInput placeholder="Username" formControlName="username">
+            </mat-form-field>
+          </p>
+
+          <p>
+            <mat-form-field>
+              <input type="password" matInput placeholder="Password" formControlName="password">
+            </mat-form-field>
+          </p>
+
+          <div class="button">
+            <button type="submit" mat-button [disabled]="!loginForm.valid">Login</button>
+            <button mat-button routerLink="/resetpassword">Reset password</button>
+
+          </div>
+
+        </form>
+        </div>
+      </mat-card-content>
+ </mat-card>

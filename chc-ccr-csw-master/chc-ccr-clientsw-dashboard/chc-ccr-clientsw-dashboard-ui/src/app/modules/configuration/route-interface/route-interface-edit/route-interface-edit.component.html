@@ -1,0 +1,53 @@
+
+
+<div class="grid-container">
+    <h1 class="mat-h1">Route Interface configuration</h1>
+
+    <div fxLayout="row" fxLayoutAlign="center center" class="content">
+        <mat-card>
+            <form [formGroup] = "configurationForm" (ngSubmit)="onSubmit(configurationForm)">
+                <h2> Route Interface configuration</h2>
+                <mat-grid-list cols="3" rowHeight="100px">
+                    <mat-grid-tile [colspan]="1" [rowspan]="1">
+                        <mat-form-field appearance="outline" color="accent">
+                            <mat-label>localBaId</mat-label>
+                            <input matInput placeholder="insert localBaId" formControlName="localBaId" >
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile [colspan]="1" [rowspan]="1">
+                        <mat-form-field appearance="outline" color="accent">
+                            <mat-label>remoteBaId</mat-label>
+                            <input matInput placeholder="insert remoteBaId" formControlName="remoteBaId" >
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile [colspan]="1" [rowspan]="1">
+                        <mat-form-field appearance="outline" color="accent">
+                            <mat-label>interFace</mat-label>
+                            <input matInput placeholder="insert interFace" formControlName="interFace" >
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile [colspan]="1" [rowspan]="1">
+                        <mat-form-field appearance="outline" color="accent">
+                            <mat-label>service</mat-label>
+                            <input matInput placeholder="insert service" formControlName="service" >
+                        </mat-form-field>
+                    </mat-grid-tile>
+                </mat-grid-list>
+                <mat-divider inset></mat-divider>
+                <br>
+            <mat-grid-list cols="2" rowHeight="50px">
+                <mat-grid-tile [colspan]="1" [rowspan]="1">
+                    <div style="text-align:left;width:100%" *ngIf="configRouteInterfaceDTO.id != null">
+                        <button mat-raised-button type="button" class="danger form-button" style="font-weight:bold" (click)="openConfirmDialog()">Delete</button>
+                    </div>
+                </mat-grid-tile>
+                <mat-grid-tile [colspan]="1" [rowspan]="1">
+                    <div style="text-align:right;width:100%">
+                        <button mat-raised-button type="submit" class="primary form-button" style="font-weight:bold"  [disabled]="!configurationForm.valid">Save</button>
+                    </div>
+                </mat-grid-tile>
+            </mat-grid-list>       
+            </form>
+        </mat-card>
+    </div>
+</div>

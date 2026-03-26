@@ -1,0 +1,67 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.cbi.chc</groupId>
+		<artifactId>chc-ccr-pom</artifactId>
+		<version>1.0.0</version>
+	</parent>
+
+	<groupId>com.cbi.chc.csw</groupId>
+	<artifactId>chc-ccr-clientsw</artifactId>
+	<packaging>pom</packaging>
+	<version>1.10.0</version>
+
+	<properties>
+		<chc-framework-version>1.6.0-SNAPSHOT</chc-framework-version>
+		<chc-ccr-version>1.5.0-SNAPSHOT</chc-ccr-version>
+	</properties>
+
+	<repositories>
+		<repository>
+			<id>nexi.snap.repo</id>
+			<url>https://artifactory.nexicloud.it/artifactory/libs-snapshot-local</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>nexi.repo</id>
+			<url>https://artifactory.nexicloud.it/artifactory/libs-release-local</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
+
+	<modules>
+		<module>chc-ccr-clientsw-encryption</module>
+		<module>chc-ccr-clientsw-domain</module>
+		<module>chc-ccr-clientsw-service</module>
+		<module>chc-ccr-clientsw-dashboard</module>
+		<module>chc-ccr-clientsw-outbound</module>
+		<module>chc-ccr-clientsw-inbound</module>
+		<module>chc-ccr-clientsw-poller-app</module>
+		<module>chc-ccr-clientsw-poller-mq</module>
+		<module>chc-ccr-clientsw-internal-api</module>
+		<module>chc-ccr-clientsw-all-app</module>
+		<module>chc-ccr-clientsw-femws</module>
+		<module>chc-ccr-clientsw-mq</module>
+		<module>chc-ccr-clientsw-restful</module>
+		<module>chc-ccr-clientsw-db</module>
+		<module>chc-ccr-clientsw-ibmmq</module>
+		<module>chc-ccr-clientsw-retention</module>
+	</modules>
+	
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<skip>${skipTests}</skip>
+					<argLine>${argLine}</argLine>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>

@@ -1,0 +1,6 @@
+databaseChangeLog:
+  - property:
+      dbms: postgresql
+      name: DB_USER
+      value: CSW
+

@@ -1,0 +1,12 @@
+package com.cbi.ccr.csw.dashboard.fms.dto;
+
+import com.cbi.ccr.csw.dashboard.dto.config.CommonConfigFilterDTO;
+
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+public class FMSConfigFilterDTO extends CommonConfigFilterDTO {
+	private boolean orderBylocaRemoteBa = true;
+}

@@ -1,0 +1,119 @@
+
+<div class="grid-container">
+    <h1 class="mat-h1">Configuration</h1>
+
+    <div fxLayout="row" fxLayoutAlign="center center" class="container">
+        <mat-card class="main-card">
+            <mat-card-title fxLayout.gt-xs="row" fxLayout.xs="column">
+                <h2 class="mat-h2">MS Service Configuration</h2>
+            </mat-card-title>
+            <mat-card-content>
+                <div class="table-container">
+                   
+                    <!-- Config filter -->
+                    <form [formGroup]="filterForm" (ngSubmit)="onSubmitFilter()">
+                        <mat-grid-list cols="6" rowHeight="70px">
+                            <mat-grid-tile [colspan]="1" [rowspan]="1">
+                                <mat-form-field appearance="outline" color="accent">
+                                    <mat-label>Interface Type </mat-label>
+                                    <mat-select formControlName="interfaceType" [value]="filter.interfaceType" (selectionChange)="onSelectionFilter($event.value)">
+                                        <mat-option *ngFor=" let interface of getInterfaceArray()" [value]="interface.code">{{interface.code}}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </mat-grid-tile>
+                            <mat-grid-tile [colspan]="1" [rowspan]="1">
+                                <mat-form-field appearance="outline" color="accent">
+                                    <mat-label>Local Ba </mat-label>
+                                    <input matInput placeholder="insert localBaId" formControlName="localBaId" >
+                                </mat-form-field>
+                            </mat-grid-tile>
+                            <mat-grid-tile [colspan]="1" [rowspan]="1">
+                                <mat-form-field appearance="outline" color="accent">
+                                    <mat-label>Remote Ba</mat-label>
+                                    <input matInput placeholder="insert remoteBaId" formControlName="remoteBaId" >
+                                </mat-form-field>
+                            </mat-grid-tile>
+                            <mat-grid-tile [colspan]="1" [rowspan]="1">
+                                <mat-checkbox class="" formControlName="lauEnabled">lauEnabled</mat-checkbox>
+                            </mat-grid-tile>
+                        </mat-grid-list>
+
+                        <!-- interfaceType DB or MQ-->
+                        <mat-grid-list *ngIf="filter && filter.interfaceType == 'MQ'" cols="6" rowHeight="70px">
+                             
+                        </mat-grid-list>
+
+                        <mat-grid-list cols="6" rowHeight="70px">
+                            <mat-grid-tile [colspan]="6" [rowspan]="1">
+                                <div>
+                                    <button mat-raised-button>
+                                        <mat-icon>filter_list</mat-icon>
+                                    </button> 
+                                    &nbsp;
+                                    <button mat-button color="accent" type="button" (click)="clearFilter()" >
+                                        <mat-icon>clear</mat-icon>
+                                    </button>
+                                    &nbsp;
+                                    <a routerLink="/configuration/mss/edit" mat-button color="accent" *ngIf="auth.isAdmin">
+                                        Add new configuration
+                                   </a> 
+                                </div>
+                            </mat-grid-tile>
+                        </mat-grid-list>
+                    </form>    
+
+                    <mat-table mat-table [dataSource]="service.dataSource" class="mat-elevation-z8 data-table" matSort  matSort #sort="matSort" (matSortChange)="sortData(sort)">
+                        <ng-container matColumnDef="id" >
+                            <th mat-text-column mat-header-cell *matHeaderCellDef mat-sort-header justify="end">Action </th>
+                            <td mat-cell *matCellDef="let element" > 
+                                <button mat-raised-button class="success" (click)="editConfiguration(element)">
+                                    <mat-icon>edit</mat-icon>
+                                </button> 
+                                <button mat-raised-button class="success" name="copy_button" (click)="copyConfiguration(element)">
+                                    <mat-icon>content_copy</mat-icon>
+                                </button>  
+                            </td>
+                        </ng-container>
+                        <ng-container matColumnDef="interfaceType">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>interfaceType</th>
+                            <td mat-cell *matCellDef="let element"> {{element.interfaceType}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="localBaId">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>localBaId</th>
+                            <td mat-cell *matCellDef="let element"> {{ element.localBaId }} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="remoteBaId">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>remoteBaId</th>
+                            <td mat-cell *matCellDef="let element"> {{ element.remoteBaId }} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="lauEnabled">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>lauEnabled</th>
+                            <td mat-cell *matCellDef="let element"> {{ element.lauEnabled }} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="lauKey">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>lauKey</th>
+                            <td mat-cell *matCellDef="let element"> {{ element.lauKey }} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="sndCompletionAlgo">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>sndCompletionAlgo</th>
+                            <td mat-cell *matCellDef="let element"> {{ element.sndCompletionAlgo }} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="rcvCompletionAlgo">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>rcvCompletionAlgo</th>
+                            <td mat-cell *matCellDef="let element"> {{ element.rcvCompletionAlgo }} </td>
+                        </ng-container>
+                        <tr mat-header-row *matHeaderRowDef="mssdisplayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: mssdisplayedColumns;"></tr>
+                    </mat-table>
+
+                  <mat-paginator [pageSizeOptions]="service.pageSizeOptions"
+                    [length]="service.length"
+                    [pageSize]="service.pageSize"
+                    showFirstLastButtons aria-label="Select page of periodic elements"
+                    (page)="handlePageEvent($event)">
+                 </mat-paginator>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>

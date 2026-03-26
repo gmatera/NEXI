@@ -1,0 +1,66 @@
+databaseChangeLog:
+  - property:
+      dbms: postgresql
+      name: DB_USER
+      value: CSW
+ 
+  - changeSet:
+      id: 00_csw_domain_postgres.sql
+      author: Eng
+      dbms: postgresql
+      changes:
+      - sqlFile:
+          encoding: utf8
+          endDelimiter: \n/\s*\n|\n/\s*$
+          path: 00_csw_domain_postgres.sql
+          relativeToChangelogFile: true
+          splitStatements: true
+          stripComments: true
+  - changeSet:
+      id: 01_csw_domain_postgres.sql
+      author: Eng
+      dbms: postgresql
+      changes:
+      - sqlFile:
+          encoding: utf8
+          endDelimiter: \n/\s*\n|\n/\s*$
+          path: 01_csw_domain_postgres.sql
+          relativeToChangelogFile: true
+          splitStatements: true
+          stripComments: true
+  - changeSet:
+      id: 02_csw_views.sql
+      author: Eng
+      dbms: postgresql
+      changes:
+      - sqlFile:
+          encoding: utf8
+          endDelimiter: \n/\s*\n|\n/\s*$
+          path: 02_csw_views.sql
+          relativeToChangelogFile: true
+          splitStatements: true
+          stripComments: true
+  - changeSet:
+      id: 02_csw_init_postgres.sql
+      author: Eng
+      dbms: postgresql
+      changes:
+      - sqlFile:
+          encoding: utf8
+          endDelimiter: \n/\s*\n|\n/\s*$
+          path: 02_csw_init_postgres.sql
+          relativeToChangelogFile: true
+          splitStatements: true
+          stripComments: true
+  - changeSet:
+      id: 02_csw_views.sql
+      author: Eng
+      dbms: postgresql
+      changes:
+      - sqlFile:
+          encoding: utf8
+          endDelimiter: \n/\s*\n|\n/\s*$
+          path: 02_csw_views.sql
+          relativeToChangelogFile: true
+          splitStatements: true
+          stripComments: true

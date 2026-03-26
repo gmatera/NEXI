@@ -1,0 +1,18 @@
+databaseChangeLog:
+  - property:
+      dbms: postgresql
+      name: DB_USER
+      value: CSW
+      
+  - changeSet:
+      id: 03_csw_alter_table.sql
+      author: Eng
+      dbms: postgresql
+      changes:
+      - sqlFile:
+          encoding: utf8
+          endDelimiter: \n/\s*\n|\n/\s*$
+          path: 03_csw_alter_table.sql
+          relativeToChangelogFile: true
+          splitStatements: true
+          stripComments: true

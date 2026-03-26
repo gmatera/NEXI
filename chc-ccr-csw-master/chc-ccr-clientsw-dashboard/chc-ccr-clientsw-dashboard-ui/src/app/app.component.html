@@ -1,0 +1,6 @@
+
+<!-- <main *ngIf="!auth.isAuthenticated">
+  
+</main> -->
+<app-sidenav *ngIf="auth.isAuthenticated"><router-outlet></router-outlet></app-sidenav>
+<router-outlet *ngIf="!auth.isAuthenticated"></router-outlet>

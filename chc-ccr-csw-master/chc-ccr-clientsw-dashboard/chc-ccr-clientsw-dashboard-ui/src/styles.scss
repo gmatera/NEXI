@@ -1,0 +1,134 @@
+/* You can add global styles to this file, and also import other style files */
+ @import "~@angular/material/prebuilt-themes/purple-green.css";
+
+html {
+  height: 100%;
+}
+body {
+  margin: 0;
+  height: 100%;
+}
+
+.mat-h1 {
+  padding-top: 20px;
+  padding-bottom: 10px;
+  margin-left:15px;
+}
+
+.mat-h2 {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  margin-left:15px;
+}
+
+td.mat-cell {
+  padding-right: 20px !important;
+}
+
+// main{
+//   height: 100%;
+// }
+.container{
+  min-height: 100vh;
+}
+.grid-container{
+  padding-left: 20px;
+  // height: 100%;
+}
+
+.main-card {
+  overflow-x: auto;
+  width:96%;
+  min-height: 100vh;
+}
+
+.dashboard-card {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  right: 15px;
+  bottom: 15px;
+}
+
+
+.dashboard-card-content {
+  text-align: center;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-height: 100%;
+  justify-content: center;
+  align-items: stretch;
+}
+
+.primary {
+  background-color: #2a73be;
+}
+.success {
+  color:white;
+  background-color:#00a077;
+}
+
+.warning {
+  color:white;
+  background-color:#cf850f; 
+  // color:black;
+}
+.danger {
+  color:white;
+  background-color:#e74c3c;
+}
+
+.mat-expansion-indicator::after{
+  // color:white;
+  margin-top: -7px;
+}
+
+.msnackbar-info {
+  background-color:#2a73be;
+  color:white;
+}
+
+.snackbar-success {
+  background-color:#00a077;
+  color:white;
+}
+
+.snackbar-warning {
+  background-color:#cf850f;
+  color:black;
+}
+
+.snackbar-danger {
+  background-color:#e74c3c;
+  color:white;
+}
+
+.mat-grid-tile {
+  display: block;
+  position: absolute;
+  overflow: unset !important;
+}
+
+.data-table {
+  table {
+    width: 100%;
+    table-layout: fixed;
+  }
+
+  th,
+  td {
+    overflow: hidden;
+    width: 5000px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
+.dashboard-charts{
+  .ngx-charts .circle, .ngx-charts .cell, .ngx-charts .bar, .ngx-charts .arc, .chart-legend .legend-label {
+    cursor: unset !important;
+  }
+}
+

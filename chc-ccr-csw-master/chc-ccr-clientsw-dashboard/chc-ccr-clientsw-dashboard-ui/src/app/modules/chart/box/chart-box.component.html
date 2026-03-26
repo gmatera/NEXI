@@ -1,0 +1,17 @@
+<mat-grid-list cols="1" rowHeight="65px">
+    <mat-grid-tile [rowspan]="3">
+        <mat-card class="dashboard-card">
+            <mat-card-header>
+                <mat-card-title>{{label}}</mat-card-title>
+            </mat-card-header>
+            <mat-card-content class="dashboard-card-content">
+                <div #ContainerRef style="width: 100%; height: 98%;">
+                    <ngx-charts-number-card
+                        (window:resize)="resizeChart(ContainerRef.offsetWidth, ContainerRef.offsetHeight)"
+                        [results]="data" [cardColor]="cardColor">
+                    </ngx-charts-number-card>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </mat-grid-tile>
+</mat-grid-list>

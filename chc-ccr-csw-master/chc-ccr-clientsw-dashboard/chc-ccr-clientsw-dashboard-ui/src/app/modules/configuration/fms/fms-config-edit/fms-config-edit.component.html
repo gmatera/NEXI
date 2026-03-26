@@ -1,0 +1,257 @@
+
+
+<div class="grid-container">
+    <h1 class="mat-h1">FMS configuration</h1>
+
+    <div fxLayout="row" fxLayoutAlign="center center" class="content">
+        <mat-card>
+            <br>
+            <br>
+            <mat-grid-tile [colspan]="1" [rowspan]="1">
+                <div style="text-align:right;width:100%">
+                    <button mat-raised-button class="success form-button" style="font-weight:bold" (click)="goBackToList()">Back</button>
+                </div>
+            </mat-grid-tile>
+            <br>
+            <form [formGroup] = "configurationForm" (ngSubmit)="onSubmit(configurationForm)">
+                <h2> Route configuration</h2>
+                <mat-grid-list cols="3" rowHeight="100px">
+                    <mat-grid-tile [colspan]="1" [rowspan]="1">
+                        <mat-form-field appearance="outline" color="accent">
+                            <mat-label>Interface Type </mat-label>
+                            <mat-select formControlName="interfaceType" [value]="fmsConfigDTO.interfaceType"  (selectionChange)="selectedInterface($event.value,configurationForm)" [disabled]="fmsConfigDTO.interfaceType !=null && fmsConfigDTO.interfaceType != ''">
+                                <mat-option *ngFor=" let interface of getInterfaceArray()" [value]="interface.code">{{interface.code}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile [colspan]="1" [rowspan]="1">
+                        <mat-form-field appearance="outline" color="accent">
+                            <mat-label>Local Ba </mat-label>
+                            <input matInput placeholder="insert localBaId" formControlName="localBaId" >
+                            <mat-error *ngIf="configurationForm.controls['localBaId'].hasError('required') "> field is required </mat-error>
+                                    <mat-error *ngIf="configurationForm.controls['localBaId'].hasError('maxlength') "> max length exceeded </mat-error>
+                                    <mat-error *ngIf="configurationForm.controls['localBaId'].hasError('minlength') "> min length should be 12 </mat-error>
+                                    <mat-error *ngIf="configurationForm.controls['localBaId'].hasError('pattern') ">invalid input format</mat-error>
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile [colspan]="1" [rowspan]="1">
+                        <mat-form-field appearance="outline" color="accent">
+                            <mat-label>Remote Ba</mat-label>
+                            <input matInput placeholder="insert remoteBaId" formControlName="remoteBaId" >
+                            <mat-error *ngIf="configurationForm.controls['remoteBaId'].hasError('required') "> field is required </mat-error>
+                                    <mat-error *ngIf="configurationForm.controls['remoteBaId'].hasError('maxlength') "> max length exceeded </mat-error>
+                                    <mat-error *ngIf="configurationForm.controls['remoteBaId'].hasError('minlength') "> min length should be 12 </mat-error>
+                                    <mat-error *ngIf="configurationForm.controls['remoteBaId'].hasError('pattern') ">invalid input format</mat-error>
+                        </mat-form-field>
+                    </mat-grid-tile>
+                </mat-grid-list>
+                <mat-divider inset></mat-divider>
+                <br>
+                <h2> Send parameters configuration </h2>
+                <mat-grid-list cols="3" rowHeight="100px">
+                    <mat-grid-tile [colspan]="1" [rowspan]="1">
+                        <mat-form-field appearance="outline" color="accent">
+                            <mat-label>Code Page</mat-label>
+                            <mat-select formControlName="sndCodePage" [value]="fmsConfigDTO.sndCodePage" (selectionChange)="selectedsndCodePage($event.value,configurationForm)">
+                                <mat-option *ngFor=" let codePage of getCodePageArray()" [value]="codePage.code">{{codePage.code}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile [colspan]="1" [rowspan]="1">
+                        <mat-form-field appearance="outline" color="accent">
+                            <mat-label>Line Separator</mat-label>
+                            <mat-select formControlName="sndLineSeparator" [value]="fmsConfigDTO.sndLineSeparator">
+                                <mat-option *ngFor=" let lineSeparator of getLineSeparatorArray()" [value]="lineSeparator.code">{{lineSeparator.code}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile [colspan]="1" [rowspan]="1">
+                        <mat-form-field appearance="outline" color="accent">
+                            <mat-label>Record Format</mat-label>
+                            <mat-select formControlName="sndRecordFormat" [value]="fmsConfigDTO.sndRecordFormat" (selectionChange)="selectedSndRecordFormat($event.value,configurationForm)">
+                                <mat-option *ngFor=" let recordFormat of getRecordFormatArray()" [value]="recordFormat.code">{{recordFormat.code}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile [colspan]="1" [rowspan]="1">
+                        <mat-form-field appearance="outline" color="accent">
+                            <mat-label>Max Record Length</mat-label>
+                            <input matInput placeholder="insert max record length" formControlName="sndMaxRecLength" >
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <!-- <mat-grid-tile [colspan]="1" [rowspan]="1" *ngIf="configurationForm.value.interfaceType != 'DB'">
+                        <mat-form-field appearance="outline" color="accent">
+                            <mat-label>VFN Creation Algo</mat-label>
+                            <mat-select formControlName="sndVfnCreationAlgo" [value]="fmsConfigDTO.sndVfnCreationAlgo">
+                                <mat-option *ngFor=" let vfnCreationAlgo of getVfnCreationAlgoArray()" [value]="vfnCreationAlgo.code">{{vfnCreationAlgo.code}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </mat-grid-tile> -->
+                    <mat-grid-tile [colspan]="1" [rowspan]="1">
+                        <mat-form-field appearance="outline" color="accent">
+                            <mat-label>Completion Algo</mat-label>
+                            <mat-select formControlName="sndCompletionAlgo" [value]="fmsConfigDTO.sndCompletionAlgo">
+                                <mat-option *ngFor=" let completionAlgo of getBooleanArray()" [value]="completionAlgo.code">{{completionAlgo.code}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile [colspan]="1" [rowspan]="1" *ngIf="configurationForm.value.interfaceType != 'DB'">
+                        <mat-form-field appearance="outline" color="accent">
+                            <mat-label>Mqi Pos CreateInd</mat-label>
+                            <mat-select formControlName="mqiPosCreateInd" [value]="fmsConfigDTO.mqiPosCreateInd">
+                                <mat-option *ngFor=" let mqiPosCreateInd of getBooleanArray()" [value]="mqiPosCreateInd.code">{{mqiPosCreateInd.code}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </mat-grid-tile>
+                </mat-grid-list>
+                <mat-divider inset></mat-divider>
+                <br>
+                <h2> Receive parameters configuration </h2>
+                <mat-grid-list cols="3" rowHeight="100px">
+                    <mat-grid-tile [colspan]="1" [rowspan]="1">
+                        <mat-form-field appearance="outline" color="accent">
+                            <mat-label>Code Page</mat-label>
+                            <mat-select formControlName="rcvCodePage" [value]="fmsConfigDTO.rcvCodePage" (selectionChange)="selectedrcvCodePage($event.value, configurationForm)">
+                                <mat-option *ngFor=" let codePage of getCodePageArray()" [value]="codePage.code">{{codePage.code}}</mat-option> 
+                            </mat-select>
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile [colspan]="1" [rowspan]="1">
+                        <mat-form-field appearance="outline" color="accent">
+                            <mat-label>Line Separator</mat-label>
+                            <mat-select formControlName="rcvLineSeparator" [value]="fmsConfigDTO.rcvLineSeparator">
+                                <mat-option *ngFor=" let lineSeparator of getLineSeparatorArray()" [value]="lineSeparator.code">{{lineSeparator.code}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile [colspan]="1" [rowspan]="1" *ngIf="configurationForm.value.interfaceType != 'DB'">
+                        <mat-form-field appearance="outline" color="accent">
+                            <mat-label>Auto Read</mat-label>
+                            <mat-select formControlName="rcvAutoRead" [value]="fmsConfigDTO.rcvAutoRead">
+                                <mat-option *ngFor=" let autoRead of getBooleanArray()" [value]="autoRead.code">{{autoRead.code}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile [colspan]="1" [rowspan]="1" *ngIf="configurationForm.value.interfaceType == 'DB'">
+                        <mat-form-field appearance="outline" color="accent">
+                            <mat-label>DSN Creation Algo</mat-label>
+                            <mat-select formControlName="rcvDnsCreationAlgo" [value]="fmsConfigDTO.rcvDnsCreationAlgo" (selectionChange)="selectedrcvDnsCreationAlgo($event.value)">
+                                <mat-option *ngFor=" let dnsCreationAlgo of getDnsCreationAlgoArray()" [value]="dnsCreationAlgo.code">{{dnsCreationAlgo.code}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile [colspan]="1" [rowspan]="1" *ngIf="configurationForm.value.interfaceType == 'DB'">
+                        <mat-form-field appearance="outline" color="accent">
+                            <mat-label>DNS Prefix</mat-label>
+                            <input matInput placeholder="DNS Prefix" formControlName="rcvDsnPrefix">
+                            <mat-error *ngIf="configurationForm.controls['rcvDsnPrefix'].hasError('required') "> field required </mat-error>
+                            <mat-error *ngIf="configurationForm.controls['rcvDsnPrefix'].hasError('maxlength') "> max length exceeded </mat-error>
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile [colspan]="1" [rowspan]="1">
+                        <mat-form-field appearance="outline" color="accent">
+                            <mat-label>Completion Algo</mat-label>
+                            <mat-select formControlName="rcvCompletionAlgo" [value]="fmsConfigDTO.rcvCompletionAlgo">
+                                <mat-option *ngFor=" let completionAlgo of getBooleanArray()" [value]="completionAlgo.code">{{completionAlgo.code}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile [colspan]="2" [rowspan]="1">
+                        <mat-form-field appearance="outline" color="accent">
+                            <mat-label>Path</mat-label>
+                            <input matInput placeholder="Path" formControlName="rcvPath">
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile [colspan]="1" [rowspan]="1" *ngIf="configurationForm.value.interfaceType != 'DB'">
+                        <mat-form-field appearance="outline" color="accent">
+                            <mat-label>Prim Conv Format</mat-label>
+                            <mat-select formControlName="rcvPrimConvFormat" [value]="fmsConfigDTO.rcvPrimConvFormat">
+                                <mat-option *ngFor=" let primConvFormat of getCodePageArray()" [value]="primConvFormat.code">{{primConvFormat.code}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile [colspan]="1" [rowspan]="1" *ngIf="configurationForm.value.interfaceType != 'DB'">
+                        <mat-form-field appearance="outline" color="accent">
+                            <mat-label>Upload QName</mat-label>
+                            <input matInput placeholder="Upload QName" formControlName="uploadQName">
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile [colspan]="1" [rowspan]="1">
+                        <mat-form-field appearance="outline" color="accent">
+                            <mat-label>Digest File Algo</mat-label>
+                            <mat-select formControlName="digestFileAlg" [value]="fmsConfigDTO.digestFileAlg">
+                                <mat-option *ngFor=" let digestFile of getDigestFileAlgArray()" [value]="digestFile.code">{{digestFile.code}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile [colspan]="1" [rowspan]="1">
+                        <mat-form-field appearance="outline" color="accent">
+                            <mat-label>Hub Record Format</mat-label>
+                            <mat-select formControlName="rcvRecordFormat" [value]="fmsConfigDTO.rcvRecordFormat">
+                                <mat-option *ngFor=" let recordFormat of getRecordFormatArray()" [value]="recordFormat.code">{{recordFormat.code}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile [colspan]="1" [rowspan]="1">
+                        <mat-form-field appearance="outline" color="accent">
+                            <mat-label>Hub Max Record Length</mat-label>
+                            <input matInput placeholder="insert max record length" formControlName="rcvMaxRecLength" >
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile [colspan]="1" [rowspan]="1">
+                        <mat-form-field appearance="outline" color="accent">
+                            <mat-label>Hub Code Page</mat-label>
+                            <mat-select formControlName="hubCodePage" [value]="fmsConfigDTO.hubCodePage" (selectionChange)="selectedhubCodePage($event.value)">
+                                <mat-option *ngFor=" let codePage of getHubCodePageArray()" [value]="codePage.code">{{codePage.code}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile [colspan]="1" [rowspan]="1">
+                        <mat-form-field appearance="outline" color="accent">
+                            <mat-label>Hub Line Separator</mat-label>
+                            <mat-select formControlName="hubLineSeparator" [value]="fmsConfigDTO.hubLineSeparator">
+                                <mat-option *ngFor=" let lineSeparator of getHubLineSeparatorArray()" [value]="lineSeparator.code">{{lineSeparator.code}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </mat-grid-tile>
+                </mat-grid-list>
+
+                <mat-divider inset></mat-divider>
+                <br>
+                <h2> Lau parameters configuration </h2>
+                <mat-grid-list cols="3" rowHeight="100px">
+                    <mat-grid-tile [colspan]="1" [rowspan]="1">
+                        <mat-form-field appearance="outline" color="accent">
+                            <mat-label>Lau Enabled</mat-label>
+                            <mat-select formControlName="lauEnabled" [value]="fmsConfigDTO.lauEnabled" (selectionChange)="selectedLauEnabled($event.value)">
+                                <mat-option *ngFor=" let enabled of getBooleanArray()" [value]="enabled.code">{{enabled.code}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile [colspan]="1" [rowspan]="1">
+                        <mat-form-field appearance="outline" color="accent">
+                            <mat-label>Lau Key</mat-label>
+                            <input matInput placeholder="Lau Key" formControlName="lauKey" >
+                        </mat-form-field>
+                    </mat-grid-tile>
+                </mat-grid-list>
+
+
+                <mat-divider inset></mat-divider>
+                <br>
+            <mat-grid-list cols="2" rowHeight="50px">
+                <mat-grid-tile [colspan]="1" [rowspan]="1">
+                    <div style="text-align:left;width:100%" *ngIf="fmsConfigDTO.id != null">
+                        <button mat-raised-button type="button" class="danger form-button" style="font-weight:bold" (click)="openConfirmDialog()">Delete</button>
+                    </div>
+                </mat-grid-tile>
+                <mat-grid-tile [colspan]="1" [rowspan]="1">
+                    <div style="text-align:right;width:100%">
+                        <button mat-raised-button type="submit" class="primary form-button" style="font-weight:bold"  [disabled]="!configurationForm.valid">Save</button>
+                    </div>
+                </mat-grid-tile>
+            </mat-grid-list>       
+            </form>
+        </mat-card>
+    </div>
+</div>

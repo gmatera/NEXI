@@ -1,0 +1,6 @@
+databaseChangeLog:
+  - property:
+      dbms: mssql
+      name: DB_USER
+      value: CSW
+

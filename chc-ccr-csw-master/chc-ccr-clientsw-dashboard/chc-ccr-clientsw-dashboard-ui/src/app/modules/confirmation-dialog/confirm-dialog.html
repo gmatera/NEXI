@@ -1,0 +1,8 @@
+<div mat-dialog-content class="mat-typography">
+   <p>{{data.message}}</p>
+  </div>
+  <div mat-dialog-actions align="end">
+    <button mat-button (click)="closeDialog()">Cancel</button>
+    <button mat-raised-button type="button" class="danger form-button" style="font-weight:bold" (click)="confirmOperation()">Confirm</button>
+  </div>
+  
